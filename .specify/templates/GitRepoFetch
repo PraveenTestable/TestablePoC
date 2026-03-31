@@ -1,0 +1,59 @@
+Task:
+Fetch GitHub repositories based on the following requirements and organize the results into a professionally formatted Excel file.
+
+General Criteria (applies to all repositories):
+- Domain focus: Retail / E-commerce (shopping cart, product catalog, checkout system, inventory management, POS, etc.)
+- Public repositories only
+- Exclude forks
+- Prefer repositories with:
+  - Modular structure (multiple files)
+  - Basic documentation (README)
+  - Clear retail/e-commerce business logic
+  - Real-world usability (apps, demos, prototypes)
+
+Languages to include (each in a separate Excel sheet/tab):
+1. Python
+2. JavaScript
+3. TypeScript
+4. Java
+5. C#
+
+Repository Distribution (for EACH language — total 100 repos per language):
+- 25 repositories → ~1000 LoC (800–1200)
+- 25 repositories → ~3000 LoC (2500–3500)
+- 25 repositories → ~5000 LoC (4500–5500)
+- 20 repositories → ~7000 LoC (6500–7500)
+- 5 repositories → ~10000 LoC (9000–11000)
+
+Total:
+- 100 repositories per language
+- 500 repositories overall
+
+Output Requirements:
+Create a single Excel file with:
+- Separate sheet/tab for each language
+- Each sheet must contain exactly 100 repositories
+
+Table Format (for each sheet):
+| S.No | Repository Name | URL | Description | Key Features | Estimated LoC |
+
+Excel Formatting Rules:
+- Font: Arial
+- Font size:
+  - Headings: 14, Bold
+  - Content: 12
+- Apply a clean and professional background color ONLY for header row
+- No excessive or multiple colors
+- Proper alignment for all columns (text left-aligned)
+- Maintain consistent column width for readability
+- Ensure no duplicate repositories within or across sheets
+
+Data Rules:
+- Descriptions must be concise (1–2 lines)
+- Ensure all repositories are relevant to retail/e-commerce use cases
+- If exact LoC is unavailable, provide a close estimate or mark as "Approx."
+- Ensure repository URLs are valid and accessible
+
+Final Deliverable:
+- A single, well-structured Excel file with 5 sheets (one per language)
+- Each sheet contains 100 curated repositories following the above distribution
