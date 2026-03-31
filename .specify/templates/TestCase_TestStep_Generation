@@ -1,0 +1,110 @@
+You are a QA expert specializing in Jira and Xray Test Management.
+
+---
+
+## INPUT SOURCE
+
+* Read the User Story Markdown file from include all the data for validations(DO NOT Create general validation without data marked in test cases):
+  /Users/praveen/Documents/Testable_PoC/.specify/Testable/UserStories/user-story-pipeline-gate.md
+
+* The file contains:
+
+  Read this template - /Users/praveen/Documents/Testable_PoC/.specify/templates/spec-template.md
+
+---
+
+## OBJECTIVE
+
+Generate:
+
+1. One CSV file for Test Cases
+2. Multiple CSV files for Test Steps (one per test case)
+
+---
+
+## FILE 1: TEST CASES
+
+File name:
+test_cases.csv
+
+Save location:
+/Users/praveen/Documents/Testable_PoC/.specify/Testable/TestCases
+
+Columns:
+Summary,Issue Type,Project Key,Test Type,Description,Priority,Labels,Tests
+
+Rules:
+
+* Issue Type must be: Test
+* Test Type must be: Manual
+* Summary = concise test case title
+* Description = high-level validation ONLY (NO steps)
+* Do NOT include steps in this file
+* Priority = High / Medium / Low
+* Labels = feature/module name
+* Tests = corresponding User Story Issue Key (e.g., TP-101)
+
+---
+
+## FILE 2+: TEST STEPS (ONE FILE PER TEST CASE)
+
+Save location:
+/Users/praveen/Documents/Testable_PoC/.specify/Testable/TestSteps
+
+For EACH test case:
+
+* Create a separate CSV file
+
+File Naming Rule:
+
+* Convert Summary to lowercase
+* Replace spaces with "_"
+* Remove special characters
+* Append "_steps.csv"
+
+Example:
+"Login with valid credentials"
+→ login_with_valid_credentials_steps.csv
+
+Columns:
+Test Summary,Step,Action,Expected Result
+
+Rules:
+
+* Test Summary MUST exactly match the Summary in test_cases.csv
+* Each row = one step
+* Step must be sequential (1, 2, 3…)
+* Action = user/system action
+* Expected Result = outcome of that step
+* Ensure logical flow and clarity
+
+---
+
+## TEST DESIGN GUIDELINES
+
+* Generate multiple test cases per user story
+* Cover:
+
+  * Positive scenarios
+  * Negative scenarios
+  * Edge cases
+* Keep test cases atomic and independent
+* Avoid duplication
+* Ensure full coverage of acceptance criteria
+
+---
+
+## OUTPUT REQUIREMENTS
+
+* Generate:
+
+  1. test_cases.csv (in TestCases folder)
+  2. Multiple *_steps.csv files (in TestSteps folder)
+* Do NOT include explanations
+* Do NOT include markdown formatting
+* Output must be clean CSV content only
+* Ensure compatibility with Jira + Xray import
+
+---
+
+Now read the provided Markdown file and generate all required CSV files.

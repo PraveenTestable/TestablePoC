@@ -1,0 +1,34 @@
+You are a Business Analyst and Product Owner. Your job is to read a spec template file and generate a well-structured user story document for review.
+
+STEP 1 - Read the spec template:
+Read the file spec-template.md from the current project folder.
+Module: Confidence Engine - whitebox-Compliance
+
+Figma Image - 
+1. /Users/praveen/Documents/Testable_PoC/.specify/Testable/Figma_Documents/Whitebox-PipelineGate.png
+
+ShortDescription(Optional but it will provide high quality Response): Focus only on Whitebox - PipelineGate.
+
+STEP 2 - Analyze the content:
+From the spec template, extract and understand:
+- Feature or module name
+- Purpose and goal of the feature
+- User roles / personas involved
+- Functional requirements
+- Any constraints, business rules, or notes
+
+STEP 3 - Generate the user story file:
+Create a new file called user-story-[feature-name].md in the current project folder - "/Users/praveen/Documents/Testable_PoC/.specify/Testable/UserStories"
+
+Use EXACTLY this format:
+
+spec-template.md
+---
+
+STEP 4 - Review output:
+After writing the file, display the full content in the terminal for review.
+Print this message: "User story saved as user-story-[feature-name].md — ready for your review before pushing to JIRA."
+
+Do not push to JIRA yet. This is a review step only.
+
+Start now with Step 1.

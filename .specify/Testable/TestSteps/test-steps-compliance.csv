@@ -1,0 +1,336 @@
+TC ID,Summary,Step,Action,Data,Expected Result
+TC-001,Sign In Page Two-Panel Layout Display,1,Navigate to the sign-in page,https://app.testable.io/signin,Sign-in page loads successfully
+TC-001,Sign In Page Two-Panel Layout Display,2,Observe the page layout,Two panels visible,Left panel displays branding content and right panel displays form container
+TC-001,Sign In Page Two-Panel Layout Display,3,Verify panel widths and positioning,Desktop viewport 1440px,Left panel is 597px width and right panel is 843px width with 150px padding
+TC-002,Sign In Left Panel Branding Content,1,Navigate to the sign-in page,https://app.testable.io/signin,Sign-in page loads successfully
+TC-002,Sign In Left Panel Branding Content,2,Observe the left panel content,Visual inspection,Product logo and brand name displayed at top
+TC-002,Sign In Left Panel Branding Content,3,Verify tagline text,Visual inspection,"Tagline ""Ship with confidence."" displayed in bold 64px"
+TC-002,Sign In Left Panel Branding Content,4,Verify key metrics display,Visual inspection,"Three metrics displayed: 14864 tests run today, 99.2% pass rate, 1.2s avg speed"
+TC-003,Sign In Right Panel Form Container,1,Navigate to the sign-in page,https://app.testable.io/signin,Sign-in page loads successfully
+TC-003,Sign In Right Panel Form Container,2,Observe the right panel container,Visual inspection,White card container with border-radius 16px displayed
+TC-003,Sign In Right Panel Form Container,3,Verify heading text,Visual inspection,"Heading ""Welcome Back,"" displayed in H4 32px Semi Bold"
+TC-003,Sign In Right Panel Form Container,4,Verify subtext content,Visual inspection,"Subtext ""Sign in to continue to your workspace"" displayed in 16px Regular"
+TC-004,Sign In Email Input Field Display,1,Navigate to the sign-in page,https://app.testable.io/signin,Sign-in page loads successfully
+TC-004,Sign In Email Input Field Display,2,Locate the email input field,Form container,Email input field is present below the subtext
+TC-004,Sign In Email Input Field Display,3,Verify placeholder text,Visual inspection,Placeholder text "Email" is displayed in light gray color
+TC-004,Sign In Email Input Field Display,4,Verify field styling,CSS inspection,Background color is #F5F5F5 with border-radius 16px
+TC-005,Sign In Password Field with Show Hide Icon,1,Navigate to the sign-in page,https://app.testable.io/signin,Sign-in page loads successfully
+TC-005,Sign In Password Field with Show Hide Icon,2,Locate the password input field,Form container,Password input field is present below email field
+TC-005,Sign In Password Field with Show Hide Icon,3,Verify show/hide eye icon is present,Right side of password field,Eye icon button is visible on the right side of the field
+TC-005,Sign In Password Field with Show Hide Icon,4,Verify placeholder text,Visual inspection,Placeholder text "Password" is displayed
+TC-006,Sign In Forgot Password Link Display,1,Navigate to the sign-in page,https://app.testable.io/signin,Sign-in page loads successfully
+TC-006,Sign In Forgot Password Link Display,2,Locate the Forgot Password link,Below password field right-aligned,Link with text "Forgot Password?" is displayed
+TC-006,Sign In Forgot Password Link Display,3,Click the Forgot Password link,Mouse click,User is navigated to /forgot-password page
+TC-006,Sign In Forgot Password Link Display,4,Verify link styling,CSS inspection,Link color is #0066CC with underline on hover
+TC-007,Sign In Authenticate Button Display,1,Navigate to the sign-in page,https://app.testable.io/signin,Sign-in page loads successfully
+TC-007,Sign In Authenticate Button Display,2,Locate the Authenticate button,Below password field,Button with text "Authenticate" and arrow icon is displayed
+TC-007,Sign In Authenticate Button Display,3,Verify button styling,CSS inspection,Button has full width with dark background #0A0A0A and white text
+TC-007,Sign In Authenticate Button Display,4,Hover over the button,Mouse hover,Cursor changes to pointer indicating interactivity
+TC-008,Sign In SSO Options Display,1,Navigate to the sign-in page,https://app.testable.io/signin,Sign-in page loads successfully
+TC-008,Sign In SSO Options Display,2,Locate SSO buttons,Above or below email/password form,Google and Microsoft buttons with respective icons are displayed
+TC-008,Sign In SSO Options Display,3,Verify divider with or text,Between SSO and email/password,Divider line with "or" text is displayed
+TC-008,Sign In SSO Options Display,4,Verify Sign in with SSO button,Form container,Button with text "Sign in with SSO" is displayed
+TC-009,Valid Email Login Successful,1,Navigate to the sign-in page,https://app.testable.io/signin,Sign-in page loads successfully
+TC-009,Valid Email Login Successful,2,Enter valid email in the email field,test@testable.cloud,Email is accepted with no validation error shown
+TC-009,Valid Email Login Successful,3,Enter valid password in the password field,Test@1234!,Password is masked and field shows no error
+TC-009,Valid Email Login Successful,4,Click the Authenticate button,Mouse click,Loading spinner appears on button and button is disabled
+TC-009,Valid Email Login Successful,5,Wait for API response,2-3 seconds,User is redirected to /dashboard with welcome toast message "Welcome back!"
+TC-010,Valid Username Login Successful,1,Navigate to the sign-in page,https://app.testable.io/signin,Sign-in page loads successfully
+TC-010,Valid Username Login Successful,2,Enter valid username in the email field,john_doe,Username is accepted with no validation error shown
+TC-010,Valid Username Login Successful,3,Enter valid password in the password field,Test@1234!,Password is masked and field shows no error
+TC-010,Valid Username Login Successful,4,Click the Authenticate button,Mouse click,Loading spinner appears on button and button is disabled
+TC-010,Valid Username Login Successful,5,Wait for API response,2-3 seconds,User is redirected to /dashboard with welcome toast message
+TC-011,Password Show Hide Toggle Functionality,1,Navigate to the sign-in page,https://app.testable.io/signin,Sign-in page loads successfully
+TC-011,Password Show Hide Toggle Functionality,2,Enter a password in the password field,Test@1234!,Password characters are masked with dots
+TC-011,Password Show Hide Toggle Functionality,3,Click the eye icon button,Mouse click,Password becomes visible as plain text and icon changes to eye-slash
+TC-011,Password Show Hide Toggle Functionality,4,Click the eye-slash icon again,Mouse click,Password is masked again and icon changes back to eye
+TC-012,Empty Email Field Error,1,Navigate to the sign-in page,https://app.testable.io/signin,Sign-in page loads successfully
+TC-012,Empty Email Field Error,2,Leave the email field empty,Do not enter any value,Field remains empty
+TC-012,Empty Email Field Error,3,Enter a valid password in the password field,Test@1234!,Password is accepted
+TC-012,Empty Email Field Error,4,Click the Authenticate button,Mouse click,"Error message ""Email or username is required"" displays below email field with red border"
+TC-013,Empty Password Field Error,1,Navigate to the sign-in page,https://app.testable.io/signin,Sign-in page loads successfully
+TC-013,Empty Password Field Error,2,Enter a valid email in the email field,test@testable.cloud,Email is accepted
+TC-013,Empty Password Field Error,3,Leave the password field empty,Do not enter any value,Field remains empty
+TC-013,Empty Password Field Error,4,Click the Authenticate button,Mouse click,"Error message ""Password is required"" displays below password field with red border"
+TC-014,Invalid Email Format Error,1,Navigate to the sign-in page,https://app.testable.io/signin,Sign-in page loads successfully
+TC-014,Invalid Email Format Error,2,Enter invalid email format in the email field,invalidemail,Invalid email is accepted in field
+TC-014,Invalid Email Format Error,3,Click outside the field or blur,Tab to next field,"Error message ""Please enter a valid email address"" displays with red border"
+TC-015,Invalid Username Format Error,1,Navigate to the sign-in page,https://app.testable.io/signin,Sign-in page loads successfully
+TC-015,Invalid Username Format Error,2,Enter invalid username format,ab,Username with less than 3 characters is accepted in field
+TC-015,Invalid Username Format Error,3,Click outside the field or blur,Tab to next field,"Error message ""Please enter a valid username (3-50 characters, letters, numbers, underscore, hyphen)"" displays with red border"
+TC-016,Password Too Short Error,1,Navigate to the sign-in page,https://app.testable.io/signin,Sign-in page loads successfully
+TC-016,Password Too Short Error,2,Enter a valid email in the email field,test@testable.cloud,Email is accepted
+TC-016,Password Too Short Error,3,Enter password with less than 8 characters,Test1!,Password is accepted in field
+TC-016,Password Too Short Error,4,Click the Authenticate button,Mouse click,"Error message ""Password must be at least 8 characters"" displays with red border"
+TC-017,Password Missing Uppercase Error,1,Navigate to the sign-in page,https://app.testable.io/signin,Sign-in page loads successfully
+TC-017,Password Missing Uppercase Error,2,Enter a valid email in the email field,test@testable.cloud,Email is accepted
+TC-017,Password Missing Uppercase Error,3,Enter password without uppercase letter,test@1234,Password is accepted in field
+TC-017,Password Missing Uppercase Error,4,Click the Authenticate button,Mouse click,"Error message ""Password must contain at least one uppercase letter"" displays with red border"
+TC-018,Password Missing Lowercase Error,1,Navigate to the sign-in page,https://app.testable.io/signin,Sign-in page loads successfully
+TC-018,Password Missing Lowercase Error,2,Enter a valid email in the email field,test@testable.cloud,Email is accepted
+TC-018,Password Missing Lowercase Error,3,Enter password without lowercase letter,TEST@1234,Password is accepted in field
+TC-018,Password Missing Lowercase Error,4,Click the Authenticate button,Mouse click,"Error message ""Password must contain at least one lowercase letter"" displays with red border"
+TC-019,Password Missing Number Error,1,Navigate to the sign-in page,https://app.testable.io/signin,Sign-in page loads successfully
+TC-019,Password Missing Number Error,2,Enter a valid email in the email field,test@testable.cloud,Email is accepted
+TC-019,Password Missing Number Error,3,Enter password without number,Test@abc,Password is accepted in field
+TC-019,Password Missing Number Error,4,Click the Authenticate button,Mouse click,"Error message ""Password must contain at least one number"" displays with red border"
+TC-020,Password Missing Special Character Error,1,Navigate to the sign-in page,https://app.testable.io/signin,Sign-in page loads successfully
+TC-020,Password Missing Special Character Error,2,Enter a valid email in the email field,test@testable.cloud,Email is accepted
+TC-020,Password Missing Special Character Error,3,Enter password without special character,Test1234,Password is accepted in field
+TC-020,Password Missing Special Character Error,4,Click the Authenticate button,Mouse click,"Error message ""Password must contain at least one special character"" displays with red border"
+TC-021,Invalid Credentials Error,1,Navigate to the sign-in page,https://app.testable.io/signin,Sign-in page loads successfully
+TC-021,Invalid Credentials Error,2,Enter valid email in the email field,test@testable.cloud,Email is accepted
+TC-021,Invalid Credentials Error,3,Enter incorrect password,WrongPass123!,Password is masked and accepted
+TC-021,Invalid Credentials Error,4,Click the Authenticate button,Mouse click,"Generic error message ""Invalid email or password. Please try again."" displays above form"
+TC-022,Account Lockout After 5 Failed Attempts,1,Navigate to the sign-in page,https://app.testable.io/signin,Sign-in page loads successfully
+TC-022,Account Lockout After 5 Failed Attempts,2,Enter valid email and incorrect password 5 times,test@testable.cloud / WrongPass123!,Each attempt shows error message
+TC-022,Account Lockout After 5 Failed Attempts,3,Attempt to sign in again after 5th failure,test@testable.cloud / WrongPass123!,"Error message ""Too many failed attempts. Please try again after {X} minutes."" displays with countdown timer"
+TC-022,Account Lockout After 5 Failed Attempts,4,Verify button is disabled,Visual inspection,Authenticate button is disabled during lockout period
+TC-023,Network Error Handling,1,Navigate to the sign-in page,https://app.testable.io/signin,Sign-in page loads successfully
+TC-023,Network Error Handling,2,Disconnect internet connection,Disable WiFi or network,Network is disconnected
+TC-023,Network Error Handling,3,Enter valid credentials and click Authenticate,test@testable.cloud / Test@1234!,"Error message ""Unable to connect. Please check your internet connection and try again."" displays"
+TC-023,Network Error Handling,4,Verify button is re-enabled,Visual inspection,Authenticate button is re-enabled for retry
+TC-024,Server Error Handling,1,Navigate to the sign-in page,https://app.testable.io/signin,Sign-in page loads successfully
+TC-024,Server Error Handling,2,Enter valid credentials and click Authenticate,test@testable.cloud / Test@1234!,Request is sent to API
+TC-024,Server Error Handling,3,Simulate 500 Internal Server Error,API mock,"Error message ""Something went wrong. Please try again later."" displays"
+TC-024,Server Error Handling,4,Verify button is re-enabled,Visual inspection,Authenticate button is re-enabled for retry
+TC-025,Email Maximum Length Boundary,1,Navigate to the sign-in page,https://app.testable.io/signin,Sign-in page loads successfully
+TC-025,Email Maximum Length Boundary,2,Enter email address with 255 characters,255 character string,Email is accepted in field
+TC-025,Email Maximum Length Boundary,3,Click outside the field or submit,Tab or click submit,"Error message ""Email must not exceed 254 characters"" displays with red border"
+TC-026,Username Minimum Length Boundary,1,Navigate to the sign-in page,https://app.testable.io/signin,Sign-in page loads successfully
+TC-026,Username Minimum Length Boundary,2,Enter username with 2 characters,ab,Username is accepted in field
+TC-026,Username Minimum Length Boundary,3,Click outside the field or submit,Tab or click submit,Error message for invalid username format displays with red border
+TC-027,Username Maximum Length Boundary,1,Navigate to the sign-in page,https://app.testable.io/signin,Sign-in page loads successfully
+TC-027,Username Maximum Length Boundary,2,Enter username with 51 characters,51 character string,Username is accepted in field
+TC-027,Username Maximum Length Boundary,3,Click outside the field or submit,Tab or click submit,"Error message ""Username must not exceed 50 characters"" displays with red border"
+TC-028,Password Minimum Length Boundary,1,Navigate to the sign-in page,https://app.testable.io/signin,Sign-in page loads successfully
+TC-028,Password Minimum Length Boundary,2,Enter password with 7 characters,Test@12,Password is accepted in field
+TC-028,Password Minimum Length Boundary,3,Click the Authenticate button,Mouse click,"Error message ""Password must be at least 8 characters"" displays with red border"
+TC-029,Password Maximum Length Boundary,1,Navigate to the sign-in page,https://app.testable.io/signin,Sign-in page loads successfully
+TC-029,Password Maximum Length Boundary,2,Enter password with 129 characters,129 character string,Password is accepted in field
+TC-029,Password Maximum Length Boundary,3,Click the Authenticate button,Mouse click,"Error message ""Password must not exceed 128 characters"" displays with red border"
+TC-030,Email Whitespace Auto-Trim,1,Navigate to the sign-in page,https://app.testable.io/signin,Sign-in page loads successfully
+TC-030,Email Whitespace Auto-Trim,2,Enter email with leading and trailing spaces,"  test@testable.cloud  ",Email with spaces is accepted in field
+TC-030,Email Whitespace Auto-Trim,3,Submit the form or trigger blur,Click submit,Whitespace is auto-trimmed and email is validated without error
+TC-031,Password Whitespace Auto-Trim,1,Navigate to the sign-in page,https://app.testable.io/signin,Sign-in page loads successfully
+TC-031,Password Whitespace Auto-Trim,2,Enter password with leading and trailing spaces,"  Test@1234!  ",Password with spaces is accepted in field
+TC-031,Password Whitespace Auto-Trim,3,Submit the form,Click submit,Whitespace is auto-trimmed before validation
+TC-032,Email Case Insensitivity,1,Navigate to the sign-in page,https://app.testable.io/signin,Sign-in page loads successfully
+TC-032,Email Case Insensitivity,2,Enter email with mixed case,User@Example.COM,Email is accepted in field
+TC-032,Email Case Insensitivity,3,Enter valid password and submit,Test@1234!,Email is converted to lowercase and authentication proceeds successfully
+TC-033,Username Case Insensitivity,1,Navigate to the sign-in page,https://app.testable.io/signin,Sign-in page loads successfully
+TC-033,Username Case Insensitivity,2,Enter username with mixed case,John_Doe,Username is accepted in field
+TC-033,Username Case Insensitivity,3,Enter valid password and submit,Test@1234!,Username is converted to lowercase and authentication proceeds successfully
+TC-034,Two-Panel Layout Desktop Rendering,1,Navigate to the sign-in page,https://app.testable.io/signin,Sign-in page loads successfully
+TC-034,Two-Panel Layout Desktop Rendering,2,Set viewport width to 1440px or above,Browser DevTools,Viewport is set to desktop size
+TC-034,Two-Panel Layout Desktop Rendering,3,Verify both panels are visible and correctly sized,Visual inspection,Left panel 597px and right panel 843px are displayed correctly without overflow
+TC-035,Form Card Center Alignment,1,Navigate to the sign-in page,https://app.testable.io/signin,Sign-in page loads successfully
+TC-035,Form Card Center Alignment,2,Observe the form card position in right panel,Visual inspection,Form card is centered both vertically and horizontally within the right panel
+TC-036,Input Field Placeholder Styling,1,Navigate to the sign-in page,https://app.testable.io/signin,Sign-in page loads successfully
+TC-036,Input Field Placeholder Styling,2,Observe the placeholder text color,CSS inspection or visual,Placeholder text is displayed in light gray color #A3A3A3
+TC-037,Input Field Background and Border Radius,1,Navigate to the sign-in page,https://app.testable.io/signin,Sign-in page loads successfully
+TC-037,Input Field Background and Border Radius,2,Inspect the input field styling,CSS inspection,Background color is #F5F5F5 and border-radius is 16px
+TC-038,Input Field Focus State,1,Navigate to the sign-in page,https://app.testable.io/signin,Sign-in page loads successfully
+TC-038,Input Field Focus State,2,Click or tab into the email field,Focus event,Input field displays border highlight indicating active state
+TC-039,Error State Red Border,1,Navigate to the sign-in page,https://app.testable.io/signin,Sign-in page loads successfully
+TC-039,Error State Red Border,2,Submit form with empty email field,Click submit without entering email,Field border turns red #DC3545 and inline error message displays below
+TC-040,Button Hover State,1,Navigate to the sign-in page,https://app.testable.io/signin,Sign-in page loads successfully
+TC-040,Button Hover State,2,Hover over the Authenticate button,Mouse hover,Button displays slight color change indicating hover state
+TC-041,Loading State Spinner,1,Navigate to the sign-in page,https://app.testable.io/signin,Sign-in page loads successfully
+TC-041,Loading State Spinner,2,Enter valid credentials and click Authenticate,test@testable.cloud / Test@1234!,Form is submitted
+TC-041,Loading State Spinner,3,Observe the button state during API call,Visual inspection,"Button displays centered white spinner with text ""Signing in..."" and is disabled"
+TC-042,Tab Order Sequence,1,Navigate to the sign-in page,https://app.testable.io/signin,Sign-in page loads successfully
+TC-042,Tab Order Sequence,2,Press Tab key repeatedly,Keyboard navigation,"Focus moves in sequence: Email field, Password field, Forgot Password link, Authenticate button, SSO buttons"
+TC-043,Enter Key Form Submission,1,Navigate to the sign-in page,https://app.testable.io/signin,Sign-in page loads successfully
+TC-043,Enter Key Form Submission,2,Enter valid credentials in the fields,test@testable.cloud / Test@1234!,Credentials are entered
+TC-043,Enter Key Form Submission,3,Press Enter key while focus is in email or password field,Keyboard Enter key,Form is submitted and authentication flow is triggered
+TC-044,Error Message Clear on Retype,1,Navigate to the sign-in page,https://app.testable.io/signin,Sign-in page loads successfully
+TC-044,Error Message Clear on Retype,2,Submit form with empty email to trigger error,Click submit,Error message displays below email field
+TC-044,Error Message Clear on Retype,3,Start typing in the email field,Enter any character,Error message clears as user begins retyping
+TC-045,Keyboard Navigation All Elements,1,Navigate to the sign-in page,https://app.testable.io/signin,Sign-in page loads successfully
+TC-045,Keyboard Navigation All Elements,2,Press Tab key to navigate through all elements,Keyboard only,"All interactive elements including fields, buttons, and links receive focus in logical order"
+TC-045,Keyboard Navigation All Elements,3,Press Enter key on focused elements,Keyboard Enter,Buttons and links are activated when focused and Enter is pressed
+TC-046,Email Field Aria Label,1,Navigate to the sign-in page,https://app.testable.io/signin,Sign-in page loads successfully
+TC-046,Email Field Aria Label,2,Inspect the email input field element,Browser DevTools or accessibility tree,"Email field has aria-label attribute with value ""Email or username"""
+TC-047,Password Field Aria Label,1,Navigate to the sign-in page,https://app.testable.io/signin,Sign-in page loads successfully
+TC-047,Password Field Aria Label,2,Inspect the password input field element,Browser DevTools or accessibility tree,Password field has aria-label attribute with value "Password"
+TC-048,Invalid Field Aria-Invalid Attribute,1,Navigate to the sign-in page,https://app.testable.io/signin,Sign-in page loads successfully
+TC-048,Invalid Field Aria-Invalid Attribute,2,Submit form with empty email to trigger error,Click submit,Form submission attempted
+TC-048,Invalid Field Aria-Invalid Attribute,3,Inspect the email field element,Browser DevTools or accessibility tree,"Email field has aria-invalid=""true"" attribute"
+TC-049,Error Message Aria-Describedby,1,Navigate to the sign-in page,https://app.testable.io/signin,Sign-in page loads successfully
+TC-049,Error Message Aria-Describedby,2,Submit form with empty email to trigger error,Click submit,Error message displays
+TC-049,Error Message Aria-Describedby,3,Inspect the email field for aria-describedby,Browser DevTools,Email field has aria-describedby attribute pointing to error message element ID
+TC-050,Focus Indicator Visibility,1,Navigate to the sign-in page,https://app.testable.io/signin,Sign-in page loads successfully
+TC-050,Focus Indicator Visibility,2,Tab through all interactive elements,Keyboard Tab key,Each focused element displays visible focus indicator with minimum 2px outline
+TC-051,Color Contrast Ratio WCAG AA,1,Navigate to the sign-in page,https://app.testable.io/signin,Sign-in page loads successfully
+TC-051,Color Contrast Ratio WCAG AA,2,Use accessibility testing tool to measure contrast,axe or Lighthouse,All text elements meet minimum 4.5:1 contrast ratio
+TC-052,Show Hide Password Aria Label,1,Navigate to the sign-in page,https://app.testable.io/signin,Sign-in page loads successfully
+TC-052,Show Hide Password Aria Label,2,Inspect the eye icon button in default state,Browser DevTools,"Button has aria-label=""Show password"""
+TC-052,Show Hide Password Aria Label,3,Click the eye icon to toggle visibility,Mouse click,Icon state changes
+TC-052,Show Hide Password Aria Label,4,Inspect the button aria-label again,Browser DevTools,"Button has aria-label=""Hide password"""
+TC-053,Button State Screen Reader Announcement,1,Navigate to the sign-in page,https://app.testable.io/signin,Sign-in page loads successfully
+TC-053,Button State Screen Reader Announcement,2,Enable screen reader,NVDA or VoiceOver,Screen reader is active
+TC-053,Button State Screen Reader Announcement,3,Click Authenticate button and observe announcements,Screen reader output,Loading state and disabled state are announced to user
+TC-054,Touch Target Minimum Size,1,Navigate to the sign-in page,https://app.testable.io/signin,Sign-in page loads successfully
+TC-054,Touch Target Minimum Size,2,Measure all interactive element sizes,Browser DevTools or ruler tool,"All buttons, links, and input fields have minimum touch target size of 44x44px"
+TC-055,Forgot Password Page Back Link,1,Navigate to the forgot password page,https://app.testable.io/forgot-password,Forgot Password page loads successfully
+TC-055,Forgot Password Page Back Link,2,Observe the top left area of the form,Visual inspection,Back link with left arrow icon is displayed
+TC-055,Forgot Password Page Back Link,3,Verify link text and icon,Visual inspection,"Link displays arrow icon pointing left with text ""Back"""
+TC-056,Forgot Password Heading and Subtext,1,Navigate to the forgot password page,https://app.testable.io/forgot-password,Forgot Password page loads successfully
+TC-056,Forgot Password Heading and Subtext,2,Observe the heading text,Visual inspection,"Heading ""Forgot Password?"" is displayed in H4 32px Semi Bold"
+TC-056,Forgot Password Heading and Subtext,3,Observe the subtext below heading,Visual inspection,"Subtext ""Enter your email to reset your password. If it's correct, we'll send you an email with OTP"" is displayed"
+TC-057,Forgot Password Email Field,1,Navigate to the forgot password page,https://app.testable.io/forgot-password,Forgot Password page loads successfully
+TC-057,Forgot Password Email Field,2,Locate the email input field,Below the subtext,Email input field with placeholder "Email" is displayed
+TC-057,Forgot Password Email Field,3,Verify field styling,CSS inspection,Background color is #F5F5F5 with border-radius 16px
+TC-058,Forgot Password Send Email Button,1,Navigate to the forgot password page,https://app.testable.io/forgot-password,Forgot Password page loads successfully
+TC-058,Forgot Password Send Email Button,2,Locate the Send Email button,Below email field,Button with text "Send Email" is displayed
+TC-058,Forgot Password Send Email Button,3,Verify button styling,CSS inspection,Button has full width with dark background #0A0A0A
+TC-059,Forgot Password Back Navigation,1,Navigate to the forgot password page,https://app.testable.io/forgot-password,Forgot Password page loads successfully
+TC-059,Forgot Password Back Navigation,2,Enter partial email in the field,test@,Partial email is entered
+TC-059,Forgot Password Back Navigation,3,Click the Back link,Mouse click,User is navigated to Sign In page without validation error
+TC-059,Forgot Password Back Navigation,4,Return to Forgot Password page,Click Forgot Password link,Previously entered data is preserved if applicable
+TC-060,Valid Email Password Reset Request,1,Navigate to the forgot password page,https://app.testable.io/forgot-password,Forgot Password page loads successfully
+TC-060,Valid Email Password Reset Request,2,Enter valid email in the email field,test@testable.cloud,Email is accepted with no validation error
+TC-060,Valid Email Password Reset Request,3,Click the Send Email button,Mouse click,Loading spinner appears and request is sent
+TC-060,Valid Email Password Reset Request,4,Wait for API response,2-3 seconds,Success message displays and email field is cleared
+TC-061,Forgot Password Empty Email Error,1,Navigate to the forgot password page,https://app.testable.io/forgot-password,Forgot Password page loads successfully
+TC-061,Forgot Password Empty Email Error,2,Leave the email field empty,Do not enter any value,Field remains empty
+TC-061,Forgot Password Empty Email Error,3,Click the Send Email button,Mouse click,"Error message ""Email is required"" displays below email field with red border"
+TC-062,Forgot Password Invalid Email Format,1,Navigate to the forgot password page,https://app.testable.io/forgot-password,Forgot Password page loads successfully
+TC-062,Forgot Password Invalid Email Format,2,Enter invalid email format,invalidemail,Invalid email is accepted in field
+TC-062,Forgot Password Invalid Email Format,3,Click the Send Email button,Mouse click,"Error message ""Please enter a valid email address"" displays with red border"
+TC-063,Forgot Password Email Too Long,1,Navigate to the forgot password page,https://app.testable.io/forgot-password,Forgot Password page loads successfully
+TC-063,Forgot Password Email Too Long,2,Enter email with 255 characters,255 character string,Email is accepted in field
+TC-063,Forgot Password Email Too Long,3,Click the Send Email button,Mouse click,"Error message ""Email must not exceed 254 characters"" displays with red border"
+TC-064,Forgot Password Email With Spaces,1,Navigate to the forgot password page,https://app.testable.io/forgot-password,Forgot Password page loads successfully
+TC-064,Forgot Password Email With Spaces,2,Enter email with spaces inside,test @testable.cloud,Email with spaces is accepted in field
+TC-064,Forgot Password Email With Spaces,3,Click the Send Email button,Mouse click,"Error message ""Email must not contain spaces"" displays with red border"
+TC-065,Forgot Password Rate Limit Exceeded,1,Navigate to the forgot password page,https://app.testable.io/forgot-password,Forgot Password page loads successfully
+TC-065,Forgot Password Rate Limit Exceeded,2,Request password reset 3 times within an hour,test@testable.cloud,First two requests succeed
+TC-065,Forgot Password Rate Limit Exceeded,3,Attempt third request within the hour,test@testable.cloud,"Error message ""Too many requests. Please wait {X} minutes before trying again."" displays"
+TC-066,Forgot Password Success Message,1,Navigate to the forgot password page,https://app.testable.io/forgot-password,Forgot Password page loads successfully
+TC-066,Forgot Password Success Message,2,Enter valid email and click Send Email,test@testable.cloud,Request is submitted successfully
+TC-066,Forgot Password Success Message,3,Observe the success message,Above the form,"Message ""If an account exists with this email, we've sent password reset instructions."" displays in green or neutral color"
+TC-067,Forgot Password Email Field Cleared,1,Navigate to the forgot password page,https://app.testable.io/forgot-password,Forgot Password page loads successfully
+TC-067,Forgot Password Email Field Cleared,2,Enter valid email and submit,test@testable.cloud,Request is submitted
+TC-067,Forgot Password Email Field Cleared,3,Observe the email field after success,Visual inspection,Email field is cleared and disabled
+TC-068,Forgot Password Loading State,1,Navigate to the forgot password page,https://app.testable.io/forgot-password,Forgot Password page loads successfully
+TC-068,Forgot Password Loading State,2,Enter valid email and click Send Email,test@testable.cloud,Request is initiated
+TC-068,Forgot Password Loading State,3,Observe the button during API call,Visual inspection,"Button displays centered spinner with text ""Sending..."" and is disabled"
+TC-069,OTP Page Back Link and Heading,1,Navigate to the OTP verification page,https://app.testable.io/otp-verify,OTP page loads successfully
+TC-069,OTP Page Back Link and Heading,2,Observe the top left area,Visual inspection,Back link with left arrow icon is displayed
+TC-069,OTP Page Back Link and Heading,3,Observe the heading,Visual inspection,"Heading ""Enter Verification Code"" is displayed in H4 32px Semi Bold"
+TC-069,OTP Page Back Link and Heading,4,Observe the subtext,Visual inspection,"Subtext ""We've sent a 6-digit code to your email. Enter it below to verify your identity."" is displayed"
+TC-070,OTP Six Input Boxes Display,1,Navigate to the OTP verification page,https://app.testable.io/otp-verify,OTP page loads successfully
+TC-070,OTP Six Input Boxes Display,2,Observe the OTP input area,Below the subtext,Six individual input boxes are arranged horizontally
+TC-070,OTP Six Input Boxes Display,3,Verify each box accepts single digit,Enter digits 1-6,Each box accepts exactly one digit character
+TC-071,OTP Verify Button,1,Navigate to the OTP verification page,https://app.testable.io/otp-verify,OTP page loads successfully
+TC-071,OTP Verify Button,2,Locate the Verify button,Below OTP input boxes,Button with text "Verify" is displayed
+TC-071,OTP Verify Button,3,Verify button is disabled initially,Visual inspection,Verify button is disabled until all 6 digits are entered
+TC-072,OTP Resend Code Link,1,Navigate to the OTP verification page,https://app.testable.io/otp-verify,OTP page loads successfully
+TC-072,OTP Resend Code Link,2,Locate the Resend code link,Below or near Verify button,Link with countdown timer is displayed
+TC-072,OTP Resend Code Link,3,Observe the countdown text,Visual inspection,"Text displays ""Resend code in 60s"" and link is disabled"
+TC-073,OTP Auto-Focus Next Box,1,Navigate to the OTP verification page,https://app.testable.io/otp-verify,OTP page loads successfully
+TC-073,OTP Auto-Focus Next Box,2,Enter a digit in the first box,Press 1 on keyboard,Focus automatically moves to the second input box
+TC-073,OTP Auto-Focus Next Box,3,Continue entering digits,Press 2-3-4-5-6,Focus moves to next box after each digit entry
+TC-074,OTP Backspace Previous Box,1,Navigate to the OTP verification page,https://app.testable.io/otp-verify,OTP page loads successfully
+TC-074,OTP Backspace Previous Box,2,Enter digits in all six boxes,Press 1-2-3-4-5-6,All boxes are filled
+TC-074,OTP Backspace Previous Box,3,Press Backspace key,Keyboard Backspace,Focus moves to previous box and the digit is cleared
+TC-075,OTP Paste Auto-Fill,1,Navigate to the OTP verification page,https://app.testable.io/otp-verify,OTP page loads successfully
+TC-075,OTP Paste Auto-Fill,2,Copy a 6-digit code to clipboard,123456,Code is in clipboard
+TC-075,OTP Paste Auto-Fill,3,Click first box and paste,Ctrl+V or Cmd+V,All six boxes are automatically filled with respective digits
+TC-076,Valid OTP Verification,1,Navigate to the OTP verification page,https://app.testable.io/otp-verify,OTP page loads successfully
+TC-076,Valid OTP Verification,2,Enter valid 6-digit OTP code,123456,All boxes are filled
+TC-076,Valid OTP Verification,3,Click the Verify button,Mouse click,Loading spinner appears and request is sent
+TC-076,Valid OTP Verification,4,Wait for API response,2-3 seconds,User is redirected to Create New Password page
+TC-077,OTP Empty Submission Error,1,Navigate to the OTP verification page,https://app.testable.io/otp-verify,OTP page loads successfully
+TC-077,OTP Empty Submission Error,2,Leave all OTP boxes empty,Do not enter any digits,All boxes remain empty
+TC-077,OTP Empty Submission Error,3,Click the Verify button,Mouse click,"Error message ""Verification code is required"" displays"
+TC-078,OTP Fewer Than 6 Digits Error,1,Navigate to the OTP verification page,https://app.testable.io/otp-verify,OTP page loads successfully
+TC-078,OTP Fewer Than 6 Digits Error,2,Enter only 5 digits in the boxes,12345,Only 5 boxes are filled
+TC-078,OTP Fewer Than 6 Digits Error,3,Click the Verify button,Mouse click,"Error message ""Please enter a valid 6-digit code"" displays"
+TC-079,OTP Non-Numeric Characters Error,1,Navigate to the OTP verification page,https://app.testable.io/otp-verify,OTP page loads successfully
+TC-079,OTP Non-Numeric Characters Error,2,Attempt to enter letters in OTP boxes,abcdef,Letters are rejected or boxes only accept 0-9
+TC-079,OTP Non-Numeric Characters Error,3,Click the Verify button with invalid input,Mouse click,"Error message ""Please enter a valid 6-digit code"" displays"
+TC-080,OTP Invalid Code Error,1,Navigate to the OTP verification page,https://app.testable.io/otp-verify,OTP page loads successfully
+TC-080,OTP Invalid Code Error,2,Enter incorrect 6-digit code,999999,All boxes are filled with wrong code
+TC-080,OTP Invalid Code Error,3,Click the Verify button,Mouse click,"Error message ""Invalid verification code. Please try again."" displays"
+TC-081,OTP Expired Error,1,Navigate to the OTP verification page,https://app.testable.io/otp-verify,OTP page loads successfully
+TC-081,OTP Expired Error,2,Wait for 10 minutes without entering OTP,Wait 10+ minutes,OTP expires
+TC-081,OTP Expired Error,3,Enter the OTP code after expiry,123456,Boxes are filled
+TC-081,OTP Expired Error,4,Click the Verify button,Mouse click,"Error message ""This verification code has expired. Please request a new one."" displays"
+TC-082,OTP Already Used Error,1,Navigate to the OTP verification page,https://app.testable.io/otp-verify,OTP page loads successfully
+TC-082,OTP Already Used Error,2,Enter valid OTP and submit successfully,123456,First submission succeeds
+TC-082,OTP Already Used Error,3,Return to OTP page and enter same code again,123456,Same code is entered
+TC-082,OTP Already Used Error,4,Click the Verify button,Mouse click,"Error message ""This verification code has already been used. Please request a new one."" displays"
+TC-083,OTP Maximum Resend Attempts,1,Navigate to the OTP verification page,https://app.testable.io/otp-verify,OTP page loads successfully
+TC-083,OTP Maximum Resend Attempts,2,Click Resend code link 3 times,Wait for countdown each time,First two resends succeed
+TC-083,OTP Maximum Resend Attempts,3,Attempt to resend a fourth time,Click Resend link,"Error message ""Maximum resend attempts reached. Please try again later."" displays"
+TC-084,OTP Resend Countdown Timer,1,Navigate to the OTP verification page,https://app.testable.io/otp-verify,OTP page loads successfully
+TC-084,OTP Resend Countdown Timer,2,Observe the Resend code link state,Immediately after page load,"Link displays ""Resend code in 60s"" and is disabled"
+TC-084,OTP Resend Countdown Timer,3,Wait for countdown to complete,Wait 60 seconds,Link becomes enabled and text changes to "Resend code"
+TC-084,OTP Resend Countdown Timer,4,Click the Resend code link,Mouse click,New OTP is sent and countdown restarts from 60 seconds
+TC-085,OTP Input Box Styling,1,Navigate to the OTP verification page,https://app.testable.io/otp-verify,OTP page loads successfully
+TC-085,OTP Input Box Styling,2,Inspect the OTP input box styling,CSS inspection,Background color is #F5F5F5 with border-radius 8px
+TC-086,OTP Input Box Spacing,1,Navigate to the OTP verification page,https://app.testable.io/otp-verify,OTP page loads successfully
+TC-086,OTP Input Box Spacing,2,Measure the gap between boxes,CSS inspection or visual,All boxes have consistent and even spacing between them
+TC-087,OTP Active Box Focus Highlight,1,Navigate to the OTP verification page,https://app.testable.io/otp-verify,OTP page loads successfully
+TC-087,OTP Active Box Focus Highlight,2,Click or tab into an OTP box,Focus event,Active box displays border highlight indicating focus state
+TC-088,OTP Aria Labels for Input Boxes,1,Navigate to the OTP verification page,https://app.testable.io/otp-verify,OTP page loads successfully
+TC-088,OTP Aria Labels for Input Boxes,2,Inspect each OTP input box element,Browser DevTools or accessibility tree,"Each box has aria-label ""Verification code digit 1"" through ""digit 6"""
+TC-089,Create New Password Page Heading,1,Navigate to the Create New Password page,https://app.testable.io/create-password,Page loads successfully
+TC-089,Create New Password Page Heading,2,Observe the heading text,Visual inspection,"Heading ""Create New Password"" is displayed in H4 32px Semi Bold"
+TC-090,Create New Password Subtext,1,Navigate to the Create New Password page,https://app.testable.io/create-password,Page loads successfully
+TC-090,Create New Password Subtext,2,Observe the subtext below heading,Visual inspection,"Subtext ""Your new password must be different from your previous password"" is displayed"
+TC-091,Create New Password Input Field,1,Navigate to the Create New Password page,https://app.testable.io/create-password,Page loads successfully
+TC-091,Create New Password Input Field,2,Locate the New Password field,Below the subtext,Input field with placeholder "New Password" is displayed
+TC-091,Create New Password Input Field,3,Verify show/hide eye icon is present,Right side of field,Eye icon button is visible
+TC-092,Confirm Password Input Field,1,Navigate to the Create New Password page,https://app.testable.io/create-password,Page loads successfully
+TC-092,Confirm Password Input Field,2,Locate the Confirm Password field,Below New Password field,Input field with placeholder "Confirm Password" is displayed
+TC-092,Confirm Password Input Field,3,Verify show/hide eye icon is present,Right side of field,Eye icon button is visible
+TC-093,Password Strength Indicator,1,Navigate to the Create New Password page,https://app.testable.io/create-password,Page loads successfully
+TC-093,Password Strength Indicator,2,Locate the strength indicator,Below New Password field,Visual indicator showing weak/medium/strong is displayed
+TC-093,Password Strength Indicator,3,Enter a password and observe,Test@1234!,Strength indicator updates to show appropriate level
+TC-094,Password Requirement Checklist,1,Navigate to the Create New Password page,https://app.testable.io/create-password,Page loads successfully
+TC-094,Password Requirement Checklist,2,Locate the requirement checklist,Below New Password field,Checklist with password requirements is displayed
+TC-094,Password Requirement Checklist,3,Enter password meeting all criteria,Test@1234!,All checklist items show green checkmarks
+TC-095,Reset Password Button,1,Navigate to the Create New Password page,https://app.testable.io/create-password,Page loads successfully
+TC-095,Reset Password Button,2,Observe the Reset Password button,Below the form fields,Button with text "Reset Password" is displayed
+TC-095,Reset Password Button,3,Verify button is disabled initially,Without entering passwords,Button is disabled until all requirements are met
+TC-096,Valid Password Reset,1,Navigate to the Create New Password page,https://app.testable.io/create-password,Page loads successfully
+TC-096,Valid Password Reset,2,Enter valid new password meeting all requirements,Test@1234!,Password is accepted with all checkmarks green
+TC-096,Valid Password Reset,3,Enter matching confirm password,Test@1234!,Confirm password matches and no error displays
+TC-096,Valid Password Reset,4,Click the Reset Password button,Mouse click,Loading spinner appears and request is sent
+TC-096,Valid Password Reset,5,Wait for API response,2-3 seconds,Success message displays and redirect to Sign In occurs
+TC-097,New Password Empty Error,1,Navigate to the Create New Password page,https://app.testable.io/create-password,Page loads successfully
+TC-097,New Password Empty Error,2,Leave New Password field empty,Do not enter any value,Field remains empty
+TC-097,New Password Empty Error,3,Enter confirm password,Test@1234!,Confirm password is entered
+TC-097,New Password Empty Error,4,Click the Reset Password button,Mouse click,"Error message ""New password is required"" displays"
+TC-098,Confirm Password Empty Error,1,Navigate to the Create New Password page,https://app.testable.io/create-password,Page loads successfully
+TC-098,Confirm Password Empty Error,2,Enter valid new password,Test@1234!,New password is entered
+TC-098,Confirm Password Empty Error,3,Leave Confirm Password field empty,Do not enter any value,Field remains empty
+TC-098,Confirm Password Empty Error,4,Click the Reset Password button,Mouse click,"Error message ""Please confirm your password"" displays"
+TC-099,Passwords Do Not Match Error,1,Navigate to the Create New Password page,https://app.testable.io/create-password,Page loads successfully
+TC-099,Passwords Do Not Match Error,2,Enter new password,Test@1234!,New password is entered
+TC-099,Passwords Do Not Match Error,3,Enter different confirm password,Test@5678!,Confirm password does not match
+TC-099,Passwords Do Not Match Error,4,Click the Reset Password button,Mouse click,"Error message ""Passwords do not match"" displays"
+TC-100,Password Same As Current Error,1,Navigate to the Create New Password page,https://app.testable.io/create-password,Page loads successfully
+TC-100,Password Same As Current Error,2,Enter current password as new password,OldPass@123,Same password is entered
+TC-100,Password Same As Current Error,3,Enter matching confirm password,OldPass@123,Confirm matches new
+TC-100,Password Same As Current Error,4,Click the Reset Password button,Mouse click,"Error message ""New password must be different from your current password"" displays"
+TC-101,Password Strength Real-Time Update,1,Navigate to the Create New Password page,https://app.testable.io/create-password,Page loads successfully
+TC-101,Password Strength Real-Time Update,2,Start typing password character by character,"T, then Te, then Tes",Strength indicator updates with each character typed
+TC-101,Password Strength Real-Time Update,3,Complete entering full password,Test@1234!,Strength indicator shows final strength level
+TC-102,Requirement Checklist Real-Time Checkmarks,1,Navigate to the Create New Password page,https://app.testable.io/create-password,Page loads successfully
+TC-102,Requirement Checklist Real-Time Checkmarks,2,Enter password gradually,Type Test@1234! character by character,Checkmarks appear green as each requirement is satisfied
+TC-102,Requirement Checklist Real-Time Checkmarks,3,Observe all checkmarks when complete,Full password entered,All requirement items display green checkmarks
+TC-103,Reset Password Success Redirect,1,Navigate to the Create New Password page,https://app.testable.io/create-password,Page loads successfully
+TC-103,Reset Password Success Redirect,2,Enter valid new password and matching confirm,Test@1234! / Test@1234!,Both fields are filled correctly
+TC-103,Reset Password Success Redirect,3,Click the Reset Password button,Mouse click,Request is submitted
+TC-103,Reset Password Success Redirect,4,Observe success message and redirect,After API response,"Message ""Password reset successful. Redirecting to sign in..."" displays and user is redirected to Sign In page after 2 seconds"
+TC-104,Create New Password Loading State,1,Navigate to the Create New Password page,https://app.testable.io/create-password,Page loads successfully
+TC-104,Create New Password Loading State,2,Enter valid passwords in both fields,Test@1234! / Test@1234!,Both fields are filled correctly
+TC-104,Create New Password Loading State,3,Click the Reset Password button,Mouse click,"Button displays centered spinner with text ""Resetting..."" and is disabled"
+TC-105,Create New Password Aria Labels,1,Navigate to the Create New Password page,https://app.testable.io/create-password,Page loads successfully
+TC-105,Create New Password Aria Labels,2,Inspect the New Password input field,Browser DevTools or accessibility tree,"Field has aria-label=""New Password"""
+TC-105,Create New Password Aria Labels,3,Inspect the Confirm Password input field,Browser DevTools or accessibility tree,"Field has aria-label=""Confirm Password"""

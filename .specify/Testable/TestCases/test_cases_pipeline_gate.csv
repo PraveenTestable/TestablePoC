@@ -1,0 +1,63 @@
+Summary,Issue Type,Project Key,Test Type,Description,Priority,Labels,Tests
+Pipeline Gate displays alongside Whitebox and Blackbox Confidence in Gate Analysis section,Test,TP,Manual,Verify Pipeline Gate is available under Gate Analysis section with score and weight indicator,High,Pipeline-Gate,TP-103
+Pipeline Gate displays score with 60 percent weight indicator,Test,TP,Manual,Verify Pipeline Gate displays score value with 60 percent weight indicator,Medium,Pipeline-Gate,TP-103
+Pipeline Gate selection displays detailed signal metrics table,Test,TP,Manual,Verify clicking Pipeline Gate displays detailed signal metrics table below,High,Pipeline-Gate,TP-103
+Pipeline Gate summary metrics display Total Passed Failed Coverage Retries Loop and Pass Rate,Test,TP,Manual,Verify summary row displays all required fields Total Passed Failed Coverage Retries Loop and Pass Rate,High,Pipeline-Gate,TP-103
+Pipeline Gate signal table displays Signal Name Value Threshold Result and Coverage columns,Test,TP,Manual,Verify signal table displays all required columns,High,Pipeline-Gate,TP-103
+Pipeline Gate result badges display Pass Warn and Fail states with correct color coding,Test,TP,Manual,Verify result badges display Pass Warn and Fail states with correct colors,High,Pipeline-Gate,TP-103
+Pipeline Gate coverage progress bars display percentage with color coding based on value,Test,TP,Manual,Verify coverage progress bars display percentage with green yellow or red color coding,Medium,Pipeline-Gate,TP-103
+Pipeline Gate signals include Build Integrity Artifact Completeness Signal Freshness Pipeline Duration Retry Overhead and Evidence Coverage,Test,TP,Manual,Verify all required pipeline signals are present in the table,High,Pipeline-Gate,TP-103
+Pipeline Gate Build Integrity signal displays with threshold greater than or equal to 95 percent,Test,TP,Manual,Verify Build Integrity signal displays with correct threshold value,Medium,Pipeline-Gate,TP-103
+Pipeline Gate Artifact Completeness signal displays with threshold greater than or equal to 100 percent,Test,TP,Manual,Verify Artifact Completeness signal displays with correct threshold value,Medium,Pipeline-Gate,TP-103
+Pipeline Gate Signal Freshness signal displays with threshold greater than or equal to 90 percent,Test,TP,Manual,Verify Signal Freshness signal displays with correct threshold value,Medium,Pipeline-Gate,TP-103
+Pipeline Gate Pipeline Duration signal displays with threshold less than or equal to 90s,Test,TP,Manual,Verify Pipeline Duration signal displays with correct threshold value,Medium,Pipeline-Gate,TP-103
+Pipeline Gate Retry Overhead signal displays with threshold less than or equal to 5 percent,Test,TP,Manual,Verify Retry Overhead signal displays with correct threshold value,Medium,Pipeline-Gate,TP-103
+Pipeline Gate Evidence Coverage signal displays with threshold greater than or equal to 85 percent,Test,TP,Manual,Verify Evidence Coverage signal displays with correct threshold value,Medium,Pipeline-Gate,TP-103
+Pipeline Gate value displays with appropriate units percentage time in seconds or count,Test,TP,Manual,Verify value displays with appropriate units,Medium,Pipeline-Gate,TP-103
+Pipeline Gate threshold displays with comparison operators,Test,TP,Manual,Verify threshold displays with comparison operators greater than or equal less than or equal equals,Medium,Pipeline-Gate,TP-103
+Pipeline Gate failed signals display with red result badge and red progress bar segment,Test,TP,Manual,Verify failed signals display with red styling,Medium,Pipeline-Gate,TP-103
+Pipeline Gate passed signals display with green result badge and green progress bar,Test,TP,Manual,Verify passed signals display with green styling,Medium,Pipeline-Gate,TP-103
+Pipeline Gate summary metrics use green for Passed count and red for Failed count,Test,TP,Manual,Verify summary metrics use correct color coding,Medium,Pipeline-Gate,TP-103
+Pipeline Gate summary metrics calculate correctly from individual signal results,Test,TP,Manual,Verify summary metrics calculate correctly,High,Pipeline-Gate,TP-103
+Pipeline Gate total count equals sum of passed and failed counts,Test,TP,Manual,Verify total count equals passed plus failed,Medium,Pipeline-Gate,TP-103
+Pipeline Gate pass rate percentage calculates correctly as passed divided by total times 100,Test,TP,Manual,Verify pass rate calculates correctly,Medium,Pipeline-Gate,TP-103
+Pipeline Gate loop status displays Stable when pipeline execution is consistent,Test,TP,Manual,Verify loop status displays Stable for consistent execution,Low,Pipeline-Gate,TP-103
+Pipeline Gate retries count displays 0 when no retries occurred,Test,TP,Manual,Verify retries count displays 0 for no retries,Low,Pipeline-Gate,TP-103
+Pipeline Gate missing signal data displays placeholder instead of breaking layout,Test,TP,Manual,Verify missing data displays placeholder,Medium,Pipeline-Gate,TP-103
+Pipeline Gate network error displays error message with retry option,Test,TP,Manual,Verify network error displays error message with retry,Medium,Pipeline-Gate,TP-103
+Pipeline Gate empty signal table displays No signals available message,Test,TP,Manual,Verify empty table displays empty state message,Low,Pipeline-Gate,TP-103
+Pipeline Gate extremely long signal names truncate with ellipsis without breaking layout,Test,TP,Manual,Verify long names truncate with ellipsis,Low,Pipeline-Gate,TP-103
+Pipeline Gate zero coverage displays empty or red progress bar,Test,TP,Manual,Verify zero coverage displays appropriate visual state,Medium,Pipeline-Gate,TP-103
+Pipeline Gate invalid value displays such as negative time show error indicator,Test,TP,Manual,Verify invalid values display error indicator,Medium,Pipeline-Gate,TP-103
+Pipeline Gate pass rate at 0 percent displays when all signals fail with red styling,Test,TP,Manual,Verify pass rate at boundary 0 percent displays correctly,Medium,Pipeline-Gate,TP-103
+Pipeline Gate pass rate at 100 percent displays when all signals pass with green styling,Test,TP,Manual,Verify pass rate at boundary 100 percent displays correctly,Medium,Pipeline-Gate,TP-103
+Pipeline Gate signal values at threshold boundary display correct Pass or Fail status,Test,TP,Manual,Verify boundary values display correct status,Medium,Pipeline-Gate,TP-103
+Pipeline Gate Pipeline Duration at exactly 90s less than or equal to 90s displays Pass status,Test,TP,Manual,Verify Pipeline Duration at boundary displays Pass,Medium,Pipeline-Gate,TP-103
+Pipeline Gate Retry Overhead at exactly 5 percent less than or equal to 5 percent displays Pass status,Test,TP,Manual,Verify Retry Overhead at boundary displays Pass,Medium,Pipeline-Gate,TP-103
+Pipeline Gate coverage at 0 percent displays empty progress bar with red styling,Test,TP,Manual,Verify coverage at 0 percent displays correctly,Medium,Pipeline-Gate,TP-103
+Pipeline Gate coverage at 100 percent displays full progress bar with green styling,Test,TP,Manual,Verify coverage at 100 percent displays correctly,Medium,Pipeline-Gate,TP-103
+Pipeline Gate very large values display without breaking layout Duration greater than 999s,Test,TP,Manual,Verify large values display without breaking layout,Low,Pipeline-Gate,TP-103
+Pipeline Gate decimal values display with consistent precision 98 percent 45s 2 percent,Test,TP,Manual,Verify decimal values display with consistent precision,Low,Pipeline-Gate,TP-103
+Pipeline Gate card is visually consistent with Whitebox and Blackbox cards,Test,TP,Manual,Verify Pipeline Gate card visual consistency,Medium,UI-UX,TP-103
+Pipeline Gate selected card highlights with distinct background color,Test,TP,Manual,Verify selected card highlights correctly,Medium,UI-UX,TP-103
+Pipeline Gate summary metrics row has clear column headers and adequate spacing,Test,TP,Manual,Verify summary row has clear headers and spacing,Medium,UI-UX,TP-103
+Pipeline Gate signal table rows have adequate padding and hover states,Test,TP,Manual,Verify table rows have adequate padding and hover,Low,UI-UX,TP-103
+Pipeline Gate Value Threshold Result and Coverage columns are properly aligned,Test,TP,Manual,Verify columns are properly aligned,Medium,UI-UX,TP-103
+Pipeline Gate coverage progress bars align consistently across all rows,Test,TP,Manual,Verify progress bars align consistently,Low,UI-UX,TP-103
+Pipeline Gate typography hierarchy distinguishes headers from content,Test,TP,Manual,Verify typography hierarchy is correct,Low,UI-UX,TP-103
+Pipeline Gate loading states display appropriate spinners or progress indicators,Test,TP,Manual,Verify loading states display correctly,Medium,UI-UX,TP-103
+Pipeline Gate empty states display helpful messaging and call to action,Test,TP,Manual,Verify empty states display helpful messaging,Low,UI-UX,TP-103
+Pipeline Gate error states are visually distinct with appropriate iconography,Test,TP,Manual,Verify error states are visually distinct,Medium,UI-UX,TP-103
+Pipeline Gate responsive design adapts table layout for smaller screens,Test,TP,Manual,Verify responsive design works for smaller screens,Medium,UI-UX,TP-103
+Pipeline Gate card has appropriate ARIA label describing the metric,Test,TP,Manual,Verify Pipeline Gate card has ARIA label,Medium,Accessibility,TP-103
+Pipeline Gate summary metrics have appropriate ARIA labels for each value,Test,TP,Manual,Verify summary metrics have ARIA labels,Medium,Accessibility,TP-103
+Pipeline Gate result badges have aria-label describing the state Pass or Fail,Test,TP,Manual,Verify result badges have aria-label,Medium,Accessibility,TP-103
+Pipeline Gate signal table has proper table structure with th and td elements,Test,TP,Manual,Verify table has proper structure,Medium,Accessibility,TP-103
+Pipeline Gate table rows are keyboard navigable,Test,TP,Manual,Verify table rows are keyboard navigable,Medium,Accessibility,TP-103
+Pipeline Gate coverage progress bars have aria-valuenow aria-valuemin and aria-valuemax attributes,Test,TP,Manual,Verify progress bars have ARIA attributes,Medium,Accessibility,TP-103
+Pipeline Gate color contrast ratio meets 4.5 to 1 requirement for all text,Test,TP,Manual,Verify color contrast meets WCAG AA,Medium,Accessibility,TP-103
+Pipeline Gate screen readers announce status changes dynamically via live regions,Test,TP,Manual,Verify screen readers announce status changes,Medium,Accessibility,TP-103
+Pipeline Gate failed signal count is announced with emphasis by screen readers 1 Failed,Test,TP,Manual,Verify failed count announced with emphasis,Low,Accessibility,TP-103
+Pipeline Gate pass rate percentage is announced with context by screen readers 92 percent Pass Rate,Test,TP,Manual,Verify pass rate announced with context,Low,Accessibility,TP-103
+Pipeline Gate all interactive elements are keyboard accessible,Test,TP,Manual,Verify interactive elements are keyboard accessible,Medium,Accessibility,TP-103
+Pipeline Gate focus indicators are visible on all interactive elements,Test,TP,Manual,Verify focus indicators are visible,Medium,Accessibility,TP-103

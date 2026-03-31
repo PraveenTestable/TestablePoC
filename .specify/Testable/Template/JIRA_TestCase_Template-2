@@ -1,0 +1,173 @@
+Use only MCP tools. No Python code.
+
+Objective: Generate Test cases for User Story
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+STEP 1 — READ USER STORY FILE
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Use the filesystem MCP tool to read the user story file:
+
+user-story-compliance.md
+
+from the current project folder (Testable_PoC).
+
+Understand every validation, acceptance criteria, positive,
+
+negative, boundary, UI/UX, and accessibility section.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+STEP 2 — GENERATE TEST CASES
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Generate test cases covering ALL sections of the user story:
+
+1. Acceptance Criteria tests
+
+2. Positive Validation tests
+
+3. Negative Validation tests
+
+4. Boundary Value Analysis tests
+
+5. UI/UX Validation tests
+
+6. Accessibility Validation tests
+
+For each test case produce:
+
+  TITLE       : TC-<number> — <short, clear test case name>
+
+  DESCRIPTION : <what this test case verifies, one sentence>
+
+  TEST STEPS  : Each step has three parts:
+
+                  Action        — what the tester does
+
+                  Test Data     — exact input, URL, or value used
+
+                  Expected Result — what the system should do
+
+                                   after this specific action
+
+RULES:
+
+- Expected Result must NOT appear in the Description field
+
+- Expected Result belongs ONLY in the Test Steps CSV column
+
+- Every step must have its own Expected Result
+
+- Minimum 3 steps per test case, maximum 20 steps
+
+- Test Data column can be empty if no specific data is needed
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+STEP 3 — SAVE AS CSV (XRAY IMPORT FORMAT)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Use the filesystem MCP tool to save two files:
+
+FILE 1 — JIRA ISSUE CREATION CSV
+
+Filename: test-cases-<story-name>.csv
+
+This creates the Test issues in JIRA.
+
+Columns (exact header row):
+
+Summary,Issue Type,Priority,Description,Labels
+
+Example rows:
+
+"TC-001 — Valid Login with Email","Test","Medium","Verifies that a registered user can log in using a valid email and password combination","regression"
+
+"TC-002 — Invalid Password Error","Test","Medium","Verifies that an incorrect password displays an appropriate error message","regression"
+
+FILE 2 — XRAY STEPS CSV (Add Steps import)
+
+Filename: test-steps-<story-name>.csv
+
+This imports the test steps into each Test issue via Xray.
+
+Columns (exact header row):
+
+TC ID,Summary,Step,Action,Data,Expected Result
+
+Example rows (one row per step):
+
+"TC-001","Valid Login with Email","1","Navigate to /signin page","https://app.testable.io/signin","Sign-in page loads with email field, password field and Authenticate button visible"
+
+"TC-001","Valid Login with Email","2","Enter valid email in the email field","test@testable.cloud","Email is accepted with no validation error shown"
+
+"TC-001","Valid Login with Email","3","Enter valid password in the password field","Test@1234!","Password is masked and field shows no error"
+
+"TC-001","Valid Login with Email","4","Click the Authenticate button","—","Loading spinner appears on button and button is disabled"
+
+"TC-001","Valid Login with Email","5","Wait for API response","—","User is redirected to /dashboard with welcome toast message"
+
+FILE 3 — REVIEW MARKDOWN
+
+Filename: test-cases-review-<story-name>.md
+
+A human-readable version for review before JIRA push.
+
+Format:
+
+## TC-001 — Valid Login with Email
+
+**Description:** Verifies that a registered user can successfully sign in.
+
+**Priority:** Medium
+
+**Labels:** regression
+
+| Step | Action | Test Data | Expected Result |
+
+|------|--------|-----------|-----------------|
+
+| 1 | Navigate to /signin | https://app.testable.io/signin | Page loads correctly |
+
+| 2 | Enter valid email | test@testable.cloud | Accepted, no error |
+
+| 3 | ... | ... | ... |
+
+---
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+STEP 4 — CONFIRM
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Show this summary after saving:
+
+  File 1 (JIRA issues CSV)  : test-cases-<name>.csv
+
+  File 2 (Xray steps CSV)   : test-steps-<name>.csv
+
+  File 3 (Review markdown)  : test-cases-review-<name>.md
+
+  Total test cases generated : <count>
+
+  Acceptance Criteria tests  : <count>
+
+  Positive Validation tests  : <count>
+
+  Negative Validation tests  : <count>
+
+  Boundary Value tests       : <count>
+
+  UI/UX Validation tests     : <count>
+
+  Accessibility tests        : <count>
+
+  Total test steps           : <count>
+
+Do NOT push to JIRA yet. Review test-cases-review-<name>.md first.

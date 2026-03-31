@@ -1,0 +1,31 @@
+You are a JIRA automation agent. Use only JIRA MCP tools to create a user story in JIRA.
+
+Objective : Create only user story.(Not Test Cases or dont update any comments)
+
+TestCaseFile: user-story-signin-sso-method.md
+
+STEP 1 - Read the user story file:
+Read the file above mentioned TestCaseFile from the current project folder.
+Short Description: User should able click forgot password fro signin, Email,OTP, Reset Password Page should Cover
+
+STEP 2 - Parse the user story:
+Extract the following fields from the file:
+- Title (from the # heading or "Title:" line)
+- User Story (the "As a... I want... So that..." statement)
+- Acceptance Criteria (all numbered items)
+- Priority (if mentioned, otherwise default to Medium)
+
+STEP 3 - Create the JIRA issue:
+Use the JIRA MCP create_issue tool with these exact values:
+- Project: TP
+- Issue Type: Story
+- Summary: <extracted title>
+- Description: above mentioned .md file should execlt copy paste in the Same format(mandatory) linespacehere without missing any screens and its validations. Strutucure should follow as it is.
+
+STEP 4 - Confirm creation:
+After the issue is created, return:
+- The JIRA issue key (e.g., TP-XXX)
+- The issue URL: https://testable.atlassian.net/browse/TP-XXX
+- Confirmation that all fields were populated correctly
+
+Start now with Step 1.

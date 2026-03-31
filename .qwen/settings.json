@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(jira *)",
+      "Bash(curl *)",
+      "Bash(do *)",
+      "Bash(done)"
+    ]
+  },
+  "$version": 3
+}

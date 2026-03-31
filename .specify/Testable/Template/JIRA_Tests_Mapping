@@ -1,0 +1,103 @@
+Use only MCP tools. No Python code.
+
+Objective: Map Tests and Test Steps to User Stories
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 1 — READ BOTH FILES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Use the filesystem MCP tool to read these two files
+from the Testable_PoC project folder:
+
+  File 1: test-cases-review-compliance.md
+          → Contains: TC ID, Title, Description, Priority
+          → Used to create JIRA Test issues
+
+  File 2: test-steps-compliance.csv
+          → Contains: TC ID, Summary, Step, Action, Data,
+                       Expected Result
+          → Used to import steps into each Test issue via Xray
+
+Parse and map every TC ID from File 1 to its matching
+rows in File 2 before proceeding.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 2 — CREATE JIRA TEST ISSUES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+For each test case in test-cases-review-<name>.md,
+use the createJiraIssue MCP tool to create an issue:
+
+  Project    : TP
+  Issue Type : Test
+  Priority   : Medium
+  Summary    : <TC Title from md file — exact as written>
+  Description: <TC Description from md file>
+               Do NOT include Expected Result in description.
+               Description is a one-line summary only.
+  Labels     : regression
+
+After each issue is created:
+  Save the mapping → TC-001 : TP-90
+                     TC-002 : TP-91
+                     TC-003 : TP-92
+                     (continue for all)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 3 — IMPORT TEST STEPS FROM CSV
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+For each JIRA Test issue created in Step 2,
+use the fetchAtlassian MCP tool to POST each step
+to the Xray REST API.
+
+For every step row in test-steps-<name>.csv
+where the TC ID matches the JIRA issue:
+
+  Method  : POST
+  URL     : https://testable.atlassian.net/rest/raven/1.0/api/test/{issueKey}/step
+  Headers : Content-Type: application/json
+  Body    :
+  {
+    "index"  : <Step number from CSV>,
+    "step"   : "<Action column from CSV>",
+    "data"   : "<Data column from CSV>",
+    "result" : "<Expected Result column from CSV>"
+  }
+
+RULES:
+  - Call this API once per step row — not once per test case
+  - Expected Result goes ONLY into the "result" field
+  - Expected Result must NOT be in description or step field
+  - If Data column is empty, send "data": ""
+  - Process all steps in order (Step 1 before Step 2, etc.)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 4 — MAP ALL TESTS TO TP-51
+        UNDER TEST COVERAGE ONLY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+After ALL issues and steps are created,
+use the fetchAtlassian MCP tool to call the Xray REST API:
+
+  Method  : PUT
+  URL     : https://testable.atlassian.net/rest/raven/1.0/api/testcase/TP-51/test
+  Headers : Content-Type: application/json
+  Body    :
+  {
+    "add": [<every JIRA key created in Step 2>]
+  }
+
+STRICT RULES:
+  - Do NOT use createIssueLink
+  - Do NOT add as backlog items or linked work items
+  - Tests must appear ONLY under
+    TP-51 → Test Coverage → Add Tests
+  - No other association should be created
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 5 — CONFIRM EVERYTHING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Print a final confirmation table:
+
+  JIRA Key | TC ID  | Title                    | Steps | Mapped to TP-51
+  ---------|--------|--------------------------|-------|----------------
+  TP-90    | TC-001 | Valid Login with Email   | 5     | ✅
+  TP-91    | TC-002 | Invalid Password Error   | 4     | ✅
+  ...

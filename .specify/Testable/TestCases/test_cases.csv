@@ -1,0 +1,36 @@
+Summary,Issue Type,Project Key,Test Type,Description,Priority,Labels,Tests
+Code Intelligence tab navigation displays all testing types,Test,TP,Manual,Verify that all Code Intelligence testing type tabs are displayed correctly,High,Code-Intelligence,TP-101
+Code Intelligence active tab highlighting validation,Test,TP,Manual,Verify that the active tab is highlighted with distinct background color,Medium,Code-Intelligence,TP-101
+Code Intelligence tab count badge displays classification count,Test,TP,Manual,Verify that each testing type tab displays count badge with correct classification count,Medium,Code-Intelligence,TP-101
+Code Intelligence classification table displays all required columns,Test,TP,Manual,Verify that classification table displays Classification Value Execution Status Result and Coverage columns,High,Code-Intelligence,TP-101
+Code Intelligence execution status badges display three states,Test,TP,Manual,Verify that execution status badges display Completed In Progress and Not Started states correctly,High,Code-Intelligence,TP-101
+Code Intelligence result badges display Pass Warn Fail states,Test,TP,Manual,Verify that result badges display Pass Warn and Fail states with correct color coding,High,Code-Intelligence,TP-101
+Code Intelligence download button enabled when status is Completed,Test,TP,Manual,Verify that download button is enabled only when execution status is Completed,High,Code-Intelligence,TP-101
+Code Intelligence download button disabled when status is In Progress,Test,TP,Manual,Verify that download button is disabled when execution status is In Progress or Not Started,Medium,Code-Intelligence,TP-101
+Code Intelligence download button initiates file download,Test,TP,Manual,Verify that clicking enabled download button triggers classification report download,High,Code-Intelligence,TP-101
+Code Intelligence download button tooltip on disabled state,Test,TP,Manual,Verify that hovering over disabled download button displays appropriate tooltip message,Medium,Code-Intelligence,TP-101
+Code Intelligence classification row click opens detail modal,Test,TP,Manual,Verify that clicking on classification row opens detail modal with correct metric data,High,Code-Intelligence,TP-101
+Code Intelligence tab switching loads correct classification data,Test,TP,Manual,Verify that switching between testing type tabs loads corresponding classification table without page refresh,High,Code-Intelligence,TP-101
+Code Intelligence Run All button triggers all classifications,Test,TP,Manual,Verify that Run All button triggers execution of all classifications under active testing type,High,Code-Intelligence,TP-101
+Code Intelligence individual Run button triggers single classification,Test,TP,Manual,Verify that individual Run button triggers execution of specific classification,Medium,Code-Intelligence,TP-101
+Code Intelligence missing data displays placeholder,Test,TP,Manual,Verify that missing score data displays placeholder instead of breaking layout,Medium,Code-Intelligence,TP-101
+Code Intelligence network error displays retry option,Test,TP,Manual,Verify that network error during score calculation displays error message with retry option,Medium,Code-Intelligence,TP-101
+Code Intelligence empty table displays empty state message,Test,TP,Manual,Verify that empty classification table displays No metrics available message,Low,Code-Intelligence,TP-101
+Code Intelligence modal fails to load displays error,Test,TP,Manual,Verify that modal load failure displays error message and close button remains functional,Medium,Code-Intelligence,TP-101
+Code Intelligence long classification names truncate with ellipsis,Test,TP,Manual,Verify that extremely long classification names truncate with ellipsis without breaking layout,Low,Code-Intelligence,TP-101
+Code Intelligence zero coverage displays appropriate visual state,Test,TP,Manual,Verify that zero coverage displays empty or red progress bar,Medium,Code-Intelligence,TP-101
+Code Intelligence disabled download button does not trigger action,Test,TP,Manual,Verify that clicking disabled download button does not trigger any action,Medium,Code-Intelligence,TP-101
+Code Intelligence download failure displays error message,Test,TP,Manual,Verify that download failure displays error message with retry option,Medium,Code-Intelligence,TP-101
+Code Intelligence coverage at boundary values displays correctly,Test,TP,Manual,Verify that coverage at 0 percent and 100 percent displays appropriate progress bar styling,Medium,Code-Intelligence,TP-101
+Code Intelligence threshold boundary displays correct Pass Warn status,Test,TP,Manual,Verify that classification values at threshold boundary display correct comparison result,Medium,Code-Intelligence,TP-101
+Code Intelligence modal displays classification name and context,Test,TP,Manual,Verify that modal header displays classification name parent category and testing type context,High,Code-Intelligence,TP-102
+Code Intelligence modal cumulative metrics display four cards,Test,TP,Manual,Verify that modal displays Value Threshold Status and Coverage cards in Cumulative Metrics section,High,Code-Intelligence,TP-102
+Code Intelligence modal download button enabled when Completed,Test,TP,Manual,Verify that modal download button is enabled only when execution status is Completed,High,Code-Intelligence,TP-102
+Code Intelligence modal close button closes modal,Test,TP,Manual,Verify that clicking X button or overlay closes the modal and returns focus,High,Code-Intelligence,TP-102
+Code Intelligence modal Re-run button triggers re-execution,Test,TP,Manual,Verify that Re-run button triggers re-execution and updates metrics in real-time,High,Code-Intelligence,TP-102
+Code Intelligence modal sub-metrics table displays all child metrics,Test,TP,Manual,Verify that sub-metrics table displays all child metrics with correct data,High,Code-Intelligence,TP-102
+Code Intelligence modal Escape key closes modal,Test,TP,Manual,Verify that pressing Escape key closes the modal,Medium,Code-Intelligence,TP-102
+Code Intelligence keyboard tab navigation works correctly,Test,TP,Manual,Verify that all tabs are navigable using Tab Enter and Arrow keys,High,Accessibility,TP-101
+Code Intelligence ARIA labels on progress bars,Test,TP,Manual,Verify that progress bars have aria-valuenow aria-valuemin and aria-valuemax attributes,Medium,Accessibility,TP-101
+Code Intelligence focus management on modal open and close,Test,TP,Manual,Verify that focus traps within modal and returns to triggering element on close,High,Accessibility,TP-102
+Code Intelligence color contrast meets WCAG AA requirements,Test,TP,Manual,Verify that color contrast ratio meets 4.5 to 1 requirement for all text,Medium,Accessibility,TP-101

@@ -1,0 +1,560 @@
+# User Story
+
+**As a** registered user with email credentials,
+**I want to** sign in using my email/username and password,
+**So that** I can securely access my workspace and continue my work.
+
+**Story Type**: AUTH
+**Layout Type**: SINGLE-STEP
+
+---
+
+## Auth Flow
+
+**Flow Type**: Password-based Authentication
+**Steps**: Single-step authentication
+
+### Authentication Sequence
+
+1. User navigates to `/signin` page
+2. User enters email/username in first input field
+3. User enters password in second input field
+4. User clicks "Authenticate →" button
+5. System validates input format client-side
+6. System sends credentials to authentication API
+7. System validates credentials against database
+8. On success: Issue JWT tokens, redirect to dashboard
+9. On failure: Display error message, allow retry
+
+### Token / Session Behaviour
+
+- **Token type**: JWT (JSON Web Token)
+- **Access token expiry**: 30 minutes
+- **Refresh token expiry**: 7 days
+- **Refresh strategy**: Silent refresh using refresh token 5 minutes before access token expires
+- **Multiple sessions**: Allowed — users can have up to 5 active sessions
+- **Session storage**:
+  - Refresh token: HttpOnly, Secure Cookie
+  - Access token: Memory (JavaScript variable)
+- **Token refresh endpoint**: `POST /api/v1/auth/refresh`
+- **Logout invalidates**: All tokens (access + refresh)
+
+---
+
+## Positive Validations — Email/Username Field
+
+### Field Requirements
+
+**FR-001**: Field MUST accept both email addresses and usernames
+
+### Validation Rules
+
+1. **Required Field**
+   - Empty submission → Error: "Email or username is required"
+   - Triggered on: Form submit, field blur
+
+2. **Format Validation** (Email Mode)
+   - Must contain exactly one `@` symbol
+   - Must have valid local part (before @): 1-64 characters
+   - Must have valid domain part (after @): 1-255 characters
+   - Domain MUST contain at least one `.` character
+   - Domain MUST have valid TLD (2+ characters)
+   - Invalid format → Error: "Please enter a valid email address"
+   - Examples valid: `user@example.com`, `john.doe@company.co.uk`
+   - Examples invalid: `@example.com`, `user@`, `user@domain`, `userdomain.com`
+
+3. **Format Validation** (Username Mode)
+   - If no `@` symbol, treat as username
+   - Minimum 3 characters
+   - Maximum 50 characters
+   - Allowed characters: `a-z`, `A-Z`, `0-9`, underscore `_`, hyphen `-`
+   - Cannot start or end with `_` or `-`
+   - No consecutive special characters (`__`, `--`, `_-`)
+   - Invalid format → Error: "Please enter a valid username (3-50 characters, letters, numbers, underscore, hyphen)"
+
+4. **Length Validation**
+   - Email: Maximum 254 characters total
+   - Username: 3-50 characters
+   - Too long → Error: "Email must not exceed 254 characters" / "Username must not exceed 50 characters"
+
+5. **Character Restrictions**
+   - No leading/trailing whitespace (auto-trimmed before validation)
+   - No spaces within email/username
+   - Spaces within → Error: "Email/username must not contain spaces"
+
+6. **Case Handling**
+   - Email: Case-insensitive (converted to lowercase before lookup)
+   - Username: Case-insensitive (converted to lowercase before lookup)
+   - `User@Example.com` = `user@example.com`
+
+### Real-Time Feedback
+
+- Validation triggered on field blur (when user leaves the field)
+- Error message displayed inline below field in red (`#DC3545` or similar)
+- Field border turns red on error
+- Error cleared when user starts typing again
+- Valid state: Green checkmark (optional), border returns to normal
+
+---
+
+## Positive Validations — Password Field
+
+### Field Requirements
+
+**FR-002**: Field MUST enforce password complexity requirements
+
+### Validation Rules
+
+1. **Required Field**
+   - Empty submission → Error: "Password is required"
+   - Triggered on: Form submit, field blur
+
+2. **Minimum Length**
+   - Minimum 8 characters
+   - Too short → Error: "Password must be at least 8 characters"
+
+3. **Maximum Length**
+   - Maximum 128 characters
+   - Too long → Error: "Password must not exceed 128 characters"
+
+4. **Character Complexity** (All four required)
+   - At least one uppercase letter (A-Z) → Error: "Password must contain at least one uppercase letter"
+   - At least one lowercase letter (a-z) → Error: "Password must contain at least one lowercase letter"
+   - At least one number (0-9) → Error: "Password must contain at least one number"
+   - At least one special character (!@#$%^&*()_+-=[]{}|;:',.<>?/`~) → Error: "Password must contain at least one special character"
+
+5. **Whitespace Handling**
+   - Leading/trailing whitespace auto-trimmed before validation
+   - Internal spaces allowed (e.g., `Pass word123!` is valid if other rules met)
+
+6. **Common Password Check** (Recommended)
+   - Password NOT in top 10,000 common passwords list
+   - Match found → Error: "This password is too common. Please choose a stronger password"
+
+7. **Personal Information Check** (Recommended)
+   - Password MUST NOT contain email local part (before @)
+   - Password MUST NOT contain username
+   - Match found → Error: "Password cannot contain your email or username"
+
+### Show/Hide Toggle
+
+- Eye icon button on right side of password field
+- Default state: Password hidden (dots/asterisks)
+- Click once: Password visible (plain text)
+- Click again: Password hidden
+- Icon changes based on state (eye / eye-slash)
+- Accessible: aria-label="Show password" / "Hide password"
+
+---
+
+## Negative Validations
+
+### Authentication Errors
+
+1. **Invalid Credentials**
+   - Scenario: Email/username exists but password incorrect
+   - Display: "Invalid email or password. Please try again."
+   - Generic message (doesn't reveal if email exists)
+   - Field highlighting: Both fields highlighted in red
+   - Failed attempt counter incremented
+
+2. **Non-Existent Account**
+   - Scenario: Email/username not found in database
+   - Display: "Invalid email or password. Please try again."
+   - Same message as #1 (security best practice)
+   - Failed attempt counter incremented
+
+3. **Empty Email/Username**
+   - Scenario: User submits form without entering email/username
+   - Display: "Email or username is required"
+   - Focus moves to email/username field
+
+4. **Empty Password**
+   - Scenario: User submits form without entering password
+   - Display: "Password is required"
+   - Focus moves to password field
+
+5. **Whitespace-Only Input**
+   - Scenario: User enters only spaces in either field
+   - After trim: Treated as empty
+   - Display: "Email or username is required" / "Password is required"
+
+6. **Account Locked (Rate Limit)**
+   - Scenario: 5+ failed attempts in 15 minutes
+   - Display: "Too many failed attempts. Please try again after {X} minutes."
+   - {X} = countdown timer showing remaining lockout time
+   - Button disabled during lockout
+   - Email notification sent to account holder
+
+7. **Account Suspended/Disabled**
+   - Scenario: Account administratively disabled
+   - Display: "Your account has been suspended. Please contact support at support@testable.io"
+   - Support email clickable (mailto: link)
+
+8. **Unverified Email** (If email verification required)
+   - Scenario: Account created but email not verified
+   - Display: "Please verify your email address before signing in. Check your inbox for the verification link."
+   - Option to "Resend verification email" displayed
+
+9. **Network Error**
+   - Scenario: No internet connection, API unreachable
+   - Display: "Unable to connect. Please check your internet connection and try again."
+   - Button re-enabled for retry
+   - Retry button optionally displayed
+
+10. **Server Error**
+    - Scenario: 500 Internal Server Error from API
+    - Display: "Something went wrong. Please try again later."
+    - Error logged to monitoring system (Sentry, etc.)
+    - Button re-enabled for retry
+
+11. **Session Already Active** (Optional)
+    - Scenario: User already signed in on current browser
+    - Display: "You are already signed in."
+    - Option: "Sign out and sign in again" / "Go to Dashboard"
+
+12. **Expired Password** (If password expiry policy)
+    - Scenario: Password older than 90 days (if policy enforced)
+    - Display: "Your password has expired. Please reset your password to continue."
+    - Redirect to password reset flow
+
+13. **Concurrent Session Limit Exceeded**
+    - Scenario: User already has 5 active sessions
+    - Display: "You have reached the maximum number of active sessions (5). Please sign out from another device or contact support."
+    - Option: "View active sessions" (links to security settings)
+
+---
+
+## Button Behaviour
+
+### Authenticate Button
+
+**FR-003**: Authenticate button MUST validate inputs and trigger authentication flow
+
+#### Initial State
+- Button enabled when both fields have values (optional enhancement)
+- Button always enabled (validate on click) — Recommended
+- Background: `#0A0A0A` (black)
+- Text: "Authenticate →" with arrow icon
+- Cursor: pointer on hover
+
+#### Loading State
+- Triggered on: Form submit (after validation passes)
+- Button disabled (no double-submit)
+- Text replaced with spinner or "Signing in..."
+- Spinner: 16-20px, white color, rotating
+- Arrow icon hidden during loading
+- Minimum display time: 500ms (prevents flash)
+
+#### Success State
+- Triggered on: 200 OK response from API
+- Optional: Brief green checkmark animation (300ms)
+- Redirect to: `/dashboard` or original intended destination
+- Toast notification: "Welcome back, {UserName}!"
+- Redirect happens within 1 second of success response
+
+#### Error State
+- Triggered on: 4XX / 5XX response from API
+- Button re-enabled for retry
+- Loading spinner replaced with original text
+- Error message displayed above form or inline
+- Form fields retain values (user doesn't retype)
+- Password field: Optionally cleared for security
+
+#### Validation Flow
+```
+User clicks "Authenticate"
+  ↓
+Client-side validation (email format, password rules)
+  ↓
+If invalid: Display errors, stop
+  ↓
+If valid: Show loading state, disable button
+  ↓
+POST /api/v1/auth/signin
+  ↓
+On 200 OK: Redirect to dashboard
+On 4XX/5XX: Display error, re-enable button
+```
+
+### Forgot Password Link
+
+- Location: Below password field, right-aligned
+- Text: "Forgot Password?"
+- Style: Link color (`#0066CC` or similar), underlined on hover
+- Click action: Navigate to `/forgot-password`
+- No form validation triggered
+- No state change on current page
+
+### Register Link
+
+- Location: Footer of form card, centered
+- Text: "Don't have an account? Register"
+- "Register" portion: Link style, clickable
+- Click action: Navigate to `/signup` or `/register`
+- No form validation triggered
+
+### Google/Microsoft/SSO Buttons (Non-Email/Password)
+
+- Clicking these initiates OAuth/SSO flow (out of scope for this story)
+- Should not interfere with email/password flow
+- Optionally: Hide or de-emphasize when email/password focused
+
+---
+
+## Definition of Done
+
+### Functional Validations
+
+1. ✅ Email/username field accepts both email addresses and usernames
+2. ✅ Password field enforces 8-128 character length
+3. ✅ Password complexity rules validated (uppercase, lowercase, number, special char)
+4. ✅ All inline validation messages display correctly on error
+5. ✅ Show/hide password toggle works correctly
+6. ✅ Authenticate button shows loading state during API call
+7. ✅ Successful authentication redirects to dashboard with welcome message
+8. ✅ Failed authentication displays appropriate error message
+9. ✅ Forgot Password link navigates to `/forgot-password`
+10. ✅ Register link navigates to `/signup`
+11. ✅ Rate limiting enforced (5 attempts per 15 minutes)
+12. ✅ Account lockout mechanism works correctly
+13. ✅ JWT tokens issued and stored correctly on success
+14. ✅ Refresh token stored in HttpOnly cookie
+15. ✅ API returns correct response structure for all scenarios
+
+### UI / UX Validations
+
+1. ✅ Two-panel layout renders correctly on desktop (1440px+)
+2. ✅ Form card centered vertically and horizontally in right panel
+3. ✅ All text styles match Figma (font family, size, weight, color, line-height)
+4. ✅ Input fields have correct placeholder text and styling
+5. ✅ Input field focus states implemented (border highlight)
+6. ✅ Error states display red border and inline error message
+7. ✅ Button hover states implemented (slight lighten/darken)
+8. ✅ Loading spinner centered in button during authentication
+9. ✅ Tab order: Email → Password → Forgot Password (skip) → Authenticate → Register
+10. ✅ Enter key submits form when focus in email or password field
+11. ✅ Error messages clear when user starts retyping
+12. ✅ Form auto-trims whitespace from inputs before submission
+13. ✅ Social/SSO buttons visually separated from email/password form
+14. ✅ Divider ("or") displays correctly between SSO and email/password
+
+### Performance & Reliability
+
+1. ✅ Authentication API responds within 500ms (p95) under normal load
+2. ✅ System handles 1000 concurrent authentication requests
+3. ✅ Page loads and becomes interactive within 2 seconds (3G network)
+4. ✅ No layout shift (CLS < 0.1) during page load
+5. ✅ Form state preserved on page refresh (optional enhancement)
+6. ✅ Graceful degradation if JavaScript disabled (basic form submission)
+
+### Security Validations
+
+1. ✅ All authentication traffic over HTTPS/TLS 1.3
+2. ✅ Passwords never logged or exposed in client-side code
+3. ✅ Passwords hashed with bcrypt (cost ≥ 12) before database storage
+4. ✅ JWT signed using RS256 with secure key management
+5. ✅ Refresh tokens stored in HttpOnly, Secure, SameSite=Strict cookies
+6. ✅ Access tokens stored in memory (not localStorage)
+7. ✅ Rate limiting applied on API endpoint (10 req/min per IP)
+8. ✅ Account lockout after 5 failed attempts
+9. ✅ Generic error messages (don't reveal if email exists)
+10. ✅ CSRF protection implemented for cookie-based sessions
+11. ✅ XSS protection headers configured (Content-Security-Policy)
+12. ✅ Authentication failures logged (without passwords)
+13. ✅ SQL injection prevention (parameterized queries)
+14. ✅ Timing attack prevention (constant-time comparison for passwords)
+
+### Compatibility & Accessibility
+
+1. ✅ Responsive layout on desktop (1440px+), tablet (768px-1024px), mobile (375px-767px)
+2. ✅ Cross-browser tested: Chrome (latest 2), Firefox (latest 2), Safari (latest 2), Edge (latest 2)
+3. ✅ No console errors in browser DevTools
+4. ✅ WCAG 2.1 Level AA compliance:
+   - ✅ Color contrast ratio ≥ 4.5:1 for all text
+   - ✅ All interactive elements keyboard accessible
+   - ✅ Focus indicators visible (2px outline minimum)
+   - ✅ Form fields have associated `<label>` elements (visually hidden if needed)
+   - ✅ Error messages associated with fields via `aria-describedby`
+   - ✅ Invalid fields marked with `aria-invalid="true"`
+   - ✅ Live regions for dynamic error announcements
+5. ✅ Screen reader tested (NVDA, VoiceOver, JAWS):
+   - ✅ Form fields announced with labels
+   - ✅ Errors announced when they appear
+   - ✅ Button states (loading, disabled) announced
+6. ✅ Keyboard navigation:
+   - ✅ Tab through all fields and buttons in logical order
+   - ✅ Enter key submits form
+   - ✅ Escape clears focus or closes any open dropdowns
+   - ✅ Show/hide password toggle accessible via keyboard
+7. ✅ Touch targets ≥ 44x44px on mobile devices
+
+### Sign-off
+
+1. ✅ Unit tests written and passing (Jest, Vitest, etc.)
+2. ✅ Integration tests written and passing (API testing)
+3. ✅ E2E tests written and passing (Cypress, Playwright)
+4. ✅ Security review completed (OWASP Top 10 checked)
+5. ✅ Code review completed and approved
+6. ✅ QA testing completed with no open critical/high bugs
+7. ✅ Product Owner has reviewed and accepted the feature
+8. ✅ Documentation updated (API docs, user guides)
+
+---
+
+## Edge Cases
+
+1. **Popup Blocker During OAuth** (if OAuth buttons present)
+   - Scenario: User clicks Google/Microsoft button with popup blocker enabled
+   - Handling: Detect blocked popup, show fallback: "Popup blocked. Click here to continue." or use redirect flow
+
+2. **Network Failure Mid-Authentication**
+   - Scenario: User clicks Authenticate, network disconnects during API call
+   - Handling: Timeout after 30 seconds, display: "Unable to connect. Please check your internet connection.", re-enable button
+
+3. **Concurrent Sign-In from Same Account**
+   - Scenario: User signs in from another device while already signed in
+   - Handling: Allow up to 5 concurrent sessions; each gets unique refresh token
+
+4. **Token Expires Mid-Session**
+   - Scenario: Access token expires while user is on page
+   - Handling: Silent refresh using refresh token; if refresh fails, redirect to sign-in with message: "Your session has expired. Please sign in again."
+
+5. **User Navigates Away During OAuth Redirect**
+   - Scenario: User initiates OAuth, closes browser/tab before callback
+   - Handling: OAuth callback still processes; if successful, user signed in on next visit (if session persisted)
+
+6. **Multiple Rapid Form Submissions**
+   - Scenario: User clicks Authenticate button multiple times rapidly
+   - Handling: Debounce button clicks (300ms); ignore duplicate requests; loading state prevents visual double-click
+
+7. **Browser Cookies Disabled**
+   - Scenario: User has third-party or all cookies disabled
+   - Handling: Detect on load, display: "Cookies must be enabled to sign in. Please enable cookies and refresh the page."
+
+8. **JWT Token Tampered**
+   - Scenario: User modifies access token in memory/DevTools
+   - Handling: Signature validation fails on next API call; user logged out, redirected to sign-in: "Your session is invalid. Please sign in again."
+
+9. **Clock Skew Between Client and Server**
+   - Scenario: User's device clock is significantly off
+   - Handling: Use server timestamp for token expiry; tolerate 5-minute clock skew in JWT validation
+
+10. **Autofill Conflict**
+    - Scenario: Browser autofill populates incorrect credentials
+    - Handling: Allow user to edit fields before submit; validate on submit, not on input change
+
+11. **Copy-Paste with Leading/Trailing Spaces**
+    - Scenario: User copy-pastes email/password with invisible spaces
+    - Handling: Auto-trim whitespace before validation and submission
+
+12. **Paste of Full Email into Username Field**
+    - Scenario: User pastes `user@example.com` into field
+    - Handling: Detect `@` symbol, validate as email format
+
+13. **Password Manager Auto-Submit**
+    - Scenario: Password manager fills credentials and auto-submits form
+    - Handling: Ensure form submit handler is attached before password manager triggers (DOMContentLoaded)
+
+14. **Right-Click Paste in Password Field**
+    - Scenario: User right-clicks to paste password
+    - Handling: Allow paste (don't block); some banks block paste, but this is discouraged for UX
+
+15. **Account Created Mid-Flow**
+    - Scenario: User starts sign-in, realizes they need an account, goes to sign up, creates account, returns to sign-in
+    - Handling: Normal sign-in flow; no special handling needed
+
+---
+
+## Functional Requirements
+
+**FR-001**: System MUST accept both email addresses and usernames in the email/username field
+
+**FR-002**: System MUST enforce password complexity requirements (min 8 chars, uppercase, lowercase, number, special char)
+
+**FR-003**: System MUST validate all inputs client-side before submitting to API
+
+**FR-004**: System MUST send credentials securely to `POST /api/v1/auth/signin` endpoint
+
+**FR-005**: System MUST store refresh token in HttpOnly, Secure, SameSite=Strict cookie
+
+**FR-006**: System MUST store access token in memory (not localStorage/sessionStorage)
+
+**FR-007**: System MUST redirect authenticated users to `/dashboard` on successful sign-in
+
+**FR-008**: System MUST display appropriate error messages for all failure scenarios
+
+**FR-009**: System MUST implement rate limiting (max 5 failed attempts per 15 minutes)
+
+**FR-010**: System MUST lock account temporarily after 5 failed attempts
+
+**FR-011**: System MUST send email notification on account lockout
+
+**FR-012**: System MUST log all authentication attempts (success/failure) for security monitoring
+
+**FR-013**: System MUST redirect unauthenticated users to `/signin` when accessing protected routes
+
+**FR-014**: System MUST redirect already authenticated users to `/dashboard` when accessing `/signin`
+
+**FR-015**: System MUST provide show/hide password toggle functionality
+
+**FR-016**: System MUST auto-trim whitespace from email/username and password before validation
+
+**FR-017**: System MUST use generic error message "Invalid email or password" for authentication failures (security)
+
+**FR-018**: System MUST implement silent token refresh 5 minutes before access token expiry
+
+**FR-019**: System MUST invalidate all tokens on logout
+
+**FR-020**: System MUST support up to 5 concurrent active sessions per user
+
+*Assumptions made:*
+
+- **A-001**: User accounts are pre-created via admin or separate registration flow
+- **A-002**: Email verification is handled separately (not part of this sign-in flow)
+- **A-003**: OAuth applications (Google, Microsoft) configured separately (out of scope)
+- **A-004**: SSO provider configuration managed via admin panel (out of scope)
+- **A-005**: Password reset flow implemented as separate feature
+- **A-006**: Backend API for authentication is implemented and available
+- **A-007**: SMTP/email service configured for sending lockout notifications
+
+---
+
+## Success Criteria
+
+**SC-001**: Users can successfully sign in using email/password in under 5 seconds (from button click to dashboard load)
+
+**SC-002**: 95% of users successfully complete sign-in on first attempt (no validation errors)
+
+**SC-003**: Authentication API maintains 99.9% uptime with <500ms response time (p95)
+
+**SC-004**: Zero critical or high security vulnerabilities in authentication flow (per security audit)
+
+**SC-005**: WCAG 2.1 Level AA compliance verified via automated (axe, Lighthouse) and manual testing
+
+**SC-006**: User satisfaction rating for sign-in experience is 4.5/5 or higher (post-launch survey)
+
+**SC-007**: Account lockout mechanism prevents >99% of brute-force attacks in penetration testing
+
+**SC-008**: <1% of sign-in attempts result in support tickets (usability metric)
+
+---
+
+## Out of Scope (Separate User Stories)
+
+- Google OAuth authentication flow
+- Microsoft OAuth authentication flow
+- SSO/SAML authentication flow
+- Password reset / forgot password flow
+- New user registration / sign-up flow
+- Email verification flow
+- Multi-factor authentication (MFA)
+- "Remember me" checkbox functionality
+- Social account linking (connect Google/Microsoft to existing account)
+- Session management UI (view active sessions, sign out from all)
+- Account recovery flow
+
+---
+
+**Source**: .specify/specs/email-password-signin.md
+**Figma**: https://www.figma.com/design/BXMaoyXQzDwRZ2yaUa5iNP/Testable---MVP-Build?node-id=887-539

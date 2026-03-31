@@ -1,0 +1,102 @@
+Use the shell/bash MCP tool. No Python code.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+VARIABLES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+XRAY_CLIENT_ID     = B32155695FCE4BCDB97B69E7007C5733
+XRAY_CLIENT_SECRET = 477ab9276c6e4c783868c9fe8373e88d4e94646c25d2310f9ec748e4113a958a
+CSV_FILE           = test-steps-compliance.csv
+
+CSV must have these columns:
+  Test Key | Step | Action | Data | Expected Result
+  TP-63    | 1    | ...    | ...  | ...
+  TP-63    | 2    | ...    | ...  | ...
+  TP-64    | 1    | ...    | ...  | ...
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 1 — GET XRAY TOKEN
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Run:
+
+curl -s \
+  -X POST \
+  -H "Content-Type: application/json" \
+  -d '{"client_id":"XRAY_CLIENT_ID","client_secret":"XRAY_CLIENT_SECRET"}' \
+  https://xray.cloud.getxray.app/api/v2/authenticate
+
+Save returned token as XRAY_TOKEN.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 2 — GET ISSUE ID FOR EACH TEST KEY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Xray Cloud needs the internal issue ID (number),
+not the issue key (TP-63).
+
+For each unique Test Key in the CSV, run:
+
+curl -s \
+  -u "praveen@testable.cloud:JIRA_API_TOKEN" \
+  "https://testable.atlassian.net/rest/api/3/issue/TP-63" \
+  | grep -o '"id":"[0-9]*"' | head -1
+
+Save the mapping:
+  TP-63 → 11108
+  TP-64 → 11109
+  (repeat for all unique test keys in CSV)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 3 — ADD TEST STEPS USING XRAY GraphQL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+For each step row in the CSV, run this command
+using the issue ID from Step 2:
+
+curl -s \
+  -X POST \
+  -H "Authorization: Bearer XRAY_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "query": "mutation { addTestStep(issueId: \"<ISSUE_ID>\", step: { action: \"<ACTION>\", data: \"<DATA>\", result: \"<EXPECTED_RESULT>\" }) { id action data result } }"
+  }' \
+  https://xray.cloud.getxray.app/api/v2/graphql
+
+Example for TP-63 Step 1:
+
+curl -s \
+  -X POST \
+  -H "Authorization: Bearer XRAY_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "query": "mutation { addTestStep(issueId: \"11108\", step: { action: \"Navigate to /signin page\", data: \"https://app.testable.io/signin\", result: \"Sign-in page loads with all fields visible\" }) { id action data result } }"
+  }' \
+  https://xray.cloud.getxray.app/api/v2/graphql
+
+Repeat this call for EVERY step row in the CSV.
+Process all steps in order — Step 1 before Step 2.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 4 — VERIFY STEPS ADDED
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+For each test issue, verify steps were added:
+
+curl -s \
+  -X POST \
+  -H "Authorization: Bearer XRAY_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "query": "{ getTest(issueId: \"11108\") { steps { id action data result } } }"
+  }' \
+  https://xray.cloud.getxray.app/api/v2/graphql
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STEP 5 — CONFIRM
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Print final summary:
+
+  Test Key | Issue ID | Steps Added | Status
+  ---------|----------|-------------|-------
+  TP-63    | 11108    | 5           | ✅
+  TP-64    | 11109    | 4           | ✅
+  ...
+
+  Total test issues updated : <count>
+  Total steps imported      : <count>
